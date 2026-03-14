@@ -17,6 +17,7 @@ class Settings:
     KAFKA_SERVERS: str = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092")
     TOPIC_TRANSACTIONS: str = os.getenv("KAFKA_TRANSACTIONS_TOPIC", "transactions")
     TOPIC_RESULTS: str = os.getenv("KAFKA_RESULTS_TOPIC", "fraud_results")
+    CONSUMER_GROUP: str = os.getenv("KAFKA_CONSUMER_GROUP_ID", "sentinal-group")
 
 
 settings = Settings()
