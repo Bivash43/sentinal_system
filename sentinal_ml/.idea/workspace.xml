@@ -5,20 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="61fe4d20-c143-479f-a335-666e5d373ef1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/api/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/api/endpoints.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/core/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/core/config.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/services/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/services/predictor.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/services/kafka_comsumer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/m_learning/01_data_extraction.IPYNB" beforeDir="false" afterPath="$PROJECT_DIR$/m_learning/01_data_extraction.IPYNB" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/m_learning/04_pre_processing.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/m_learning/04_pre_processing.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/m_learning/05_train_model.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/m_learning/05_train_model.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/m_learning/06_test_model.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/m_learning/06_test_model.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -72,7 +65,7 @@
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "D:/Projects/sentinal_system/sentinal_ml/app",
+    "last_opened_file_path": "D:/Projects/sentinal_system/sentinal_ml",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -85,6 +78,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Projects\sentinal_system\sentinal_ml" />
       <recent name="D:\Projects\sentinal_system\sentinal_ml\app" />
       <recent name="D:\Projects\sentinal_system\sentinal_ml\m_learning\model" />
       <recent name="D:\Projects\sentinal_system\sentinal_ml\m_learning" />
@@ -133,7 +127,7 @@
       <updated>1773432604101</updated>
       <workItem from="1773432771711" duration="341000" />
       <workItem from="1773433147039" duration="6404000" />
-      <workItem from="1773492419840" duration="3676000" />
+      <workItem from="1773492419840" duration="6987000" />
     </task>
     <servers />
   </component>
