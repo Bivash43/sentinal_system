@@ -1,21 +1,31 @@
 package com.example.sentinal_backend.service;
 
 import com.example.sentinal_backend.model.Transaction;
+import com.example.sentinal_backend.producer.TransactionProducer;
+import com.example.sentinal_backend.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.kafka.core.KafkaTemplate;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
-public class FraudProducerService {
+public class TransactionService {
 
-    private final KafkaTemplate<String, Object> kafkaTemplate;
+    private final TransactionRepository repository;
+    private final TransactionProducer producer;
 
-    @Value("${app.kafka.topic.transactions}")
-    private String topic;
+    @Transactional
+    public Transaction processAndAnalyze(Transaction transaction) {
+        // 1. Save to PostgreSQL
+        // Use saveAndFlush to ensure the DB record is committed before Kafka triggers the AI
+        Transaction savedTx = repository.saveAndFlush(transaction);
+        log.info("Transaction saved to DB with ID: {}", savedTx.getId());
 
-    public void sendForAnalysis(Transaction transaction) {
-        kafkaTemplate.send(topic, transaction.getId(), transaction);
+        // 2. Send to Kafka for Python AI
+        producer.sendForAnalysis(transaction);
+
+        return savedTx;
     }
 }
