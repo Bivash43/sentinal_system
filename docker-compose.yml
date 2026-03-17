@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  # 1. Primary Database - Transaction Records
+  # 1. Database with persistent volume
   postgres:
     image: postgres:15
     container_name: sentinel-postgres
@@ -11,20 +11,22 @@ services:
       POSTGRES_DB: sentinel_db
     ports:
       - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U user -d sentinel_db" ]
       interval: 5s
       timeout: 5s
       retries: 5
 
-  # 2. Cache - Real-time Feature Store (Velocity Checking)
+  # 2. Redis Cache
   redis:
     image: redis:alpine
     container_name: sentinel-redis
     ports:
       - "6379:6379"
 
-  # 3. Message Broker Infrastructure
+  # 3. Kafka Broker
   kafka:
     image: confluentinc/cp-kafka:latest
     container_name: sentinel-kafka
@@ -39,13 +41,10 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
       KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092'
       KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
-      CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk' # Any random 22-char string
+      CLUSTER_ID: 'MkU3OEVBNTcwNTJENDM2Qk'
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
-      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
-      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
 
-  # 4. Monitoring - Metrics Scraper
+  # 4. Monitoring
   prometheus:
     image: prom/prometheus:latest
     container_name: sentinel-prometheus
@@ -53,10 +52,7 @@ services:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
 
-  # 5. Monitoring - Dashboard Visualization
   grafana:
     image: grafana/grafana:latest
     container_name: sentinel-grafana
@@ -66,6 +62,27 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     depends_on:
       - prometheus
+
+  # 5. AI Worker - With Model Mounting
+  ai-worker:
+    build: ./sentinal_ml
+    container_name: sentinel-ai-worker
+    depends_on:
+      - kafka
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:29092
+      - KAFKA_TRANSACTIONS_TOPIC=transactions
+      - KAFKA_RESULTS_TOPIC=fraud_results
+      - KAFKA_CONSUMER_GROUP_ID=sentinal-group-docker
+      - MODEL_PATH=/app/model/sentinel_model.joblib
+    volumes:
+      # Mount the local model folder to the container
+      # Adjust './sentinal_ml/m_learning/model' to your actual local path
+      - ./sentinal_ml/m_learning/model:/app/model
+    restart: always
+
+volumes:
+  postgres_data:
 
 networks:
   default:
