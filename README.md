@@ -87,7 +87,7 @@ Sentinel doesn't just serve predictions; it monitors its own accuracy.
 Ensure Docker is running and execute:
 
 ```bash
-docker-compose up -d
+docker-compose up -d --build
 ```
 
 This starts Kafka, Zookeeper, Postgres, and Redis.
