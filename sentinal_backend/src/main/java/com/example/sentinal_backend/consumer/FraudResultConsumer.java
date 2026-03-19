@@ -2,6 +2,7 @@ package com.example.sentinal_backend.consumer;
 
 import com.example.sentinal_backend.model.TransactionStatus;
 import com.example.sentinal_backend.repository.TransactionRepository;
+import io.micrometer.core.instrument.MeterRegistry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value; // Import this
@@ -16,6 +17,7 @@ import java.util.Map;
 public class FraudResultConsumer {
 
     private final TransactionRepository repository;
+    private final MeterRegistry meterRegistry;
 
     @KafkaListener(topics = "${app.kafka.topic.results}")
     public void handleFraudResult(Map<String, Object> result) {
@@ -25,6 +27,10 @@ public class FraudResultConsumer {
         Double confidence = (Double) result.get("confidence");
 
         log.info("📩 Processing AI result for Transaction: {} (Confidence: {}%)", id, (confidence * 100));
+
+        // --- METRIC LOGIC ---
+        String statusLabel = (isFraud != null && isFraud == 1) ? "fraud" : "approved";
+        meterRegistry.counter("sentinel.transactions.processed", "status", statusLabel).increment();
 
         repository.findById(id).ifPresentOrElse(transaction -> {
             if (isFraud != null && isFraud == 1) {
