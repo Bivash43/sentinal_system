@@ -1,6 +1,8 @@
 package com.example.sentinal_backend.service;
 
+import com.example.sentinal_backend.dto.TransactionRequest;
 import com.example.sentinal_backend.model.Transaction;
+import com.example.sentinal_backend.model.TransactionStatus;
 import com.example.sentinal_backend.producer.TransactionProducer;
 import com.example.sentinal_backend.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,17 +17,31 @@ public class TransactionService {
 
     private final TransactionRepository repository;
     private final TransactionProducer producer;
+    private final VelocityService velocityService;
 
     @Transactional
-    public Transaction processAndAnalyze(Transaction transaction) {
-        // 1. Save to PostgreSQL
-        // Use saveAndFlush to ensure the DB record is committed before Kafka triggers the AI
-        Transaction savedTx = repository.saveAndFlush(transaction);
-        log.info("Transaction saved to DB with ID: {}", savedTx.getId());
+    public Transaction processAndAnalyze(TransactionRequest request) {
+        // 1. Initialize and Map DTO to Entity
+        Transaction transaction = new Transaction();
+        transaction.setAmount(request.getAmount());
+        transaction.setCardNumber(request.getCardNumber());
+        transaction.setCurrency(request.getCurrency());
+        transaction.setFeatures(request.getFeatures());
+        transaction.setStatus(TransactionStatus.PENDING);
 
-        // 2. Send to Kafka for Python AI
-        producer.sendForAnalysis(transaction);
+        // 2. CHECK VELOCITY (The Bouncer)
+        if (velocityService.isVelocityExceeded(transaction.getCardNumber())) {
+            transaction.setStatus(TransactionStatus.FRAUD_FLAGGED);
+            transaction.setFailureReason("Velocity limit exceeded: suspicious activity");
+            return repository.save(transaction);
+        }
 
-        return savedTx;
+        // 3. SAVE TO DB FIRST (This generates the UUID)
+        Transaction savedTransaction = repository.save(transaction);
+
+        // 4. Send to Kafka for Python AI
+        producer.sendForAnalysis(savedTransaction);
+
+        return savedTransaction;
     }
 }

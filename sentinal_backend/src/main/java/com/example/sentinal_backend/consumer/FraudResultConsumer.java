@@ -36,6 +36,7 @@ public class FraudResultConsumer {
             if (isFraud != null && isFraud == 1) {
                 log.error("🚨 ALERT: Fraud detected for Transaction: {}", id);
                 transaction.setStatus(TransactionStatus.FRAUD_FLAGGED);
+                transaction.setFailureReason("AI Model: High fraud probability (" + confidence + ")");
             } else {
                 log.info("✅ CLEAN: Transaction {} verified as safe.", id);
                 transaction.setStatus(TransactionStatus.APPROVED);

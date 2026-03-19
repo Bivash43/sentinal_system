@@ -1,5 +1,6 @@
 package com.example.sentinal_backend.controller;
 
+import com.example.sentinal_backend.dto.TransactionRequest;
 import com.example.sentinal_backend.model.Transaction;
 import com.example.sentinal_backend.service.TransactionService;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +15,8 @@ public class TransactionController {
     private final TransactionService transactionService;
 
     @PostMapping("/analyze")
-    public ResponseEntity<String> analyzeTransaction(@RequestBody Transaction transaction) {
-        Transaction processed = transactionService.processAndAnalyze(transaction);
+    public ResponseEntity<String> analyzeTransaction(@RequestBody TransactionRequest request) {
+        Transaction processed = transactionService.processAndAnalyze(request);
         return ResponseEntity.ok("Transaction is being analyzed. ID: " + processed.getId());
     }
 }

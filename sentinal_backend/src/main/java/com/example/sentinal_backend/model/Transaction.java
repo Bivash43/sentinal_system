@@ -15,7 +15,9 @@ public class Transaction {
     @Id
     private String id = UUID.randomUUID().toString();
 
-    private Long userId;
+    private String cardNumber;
+
+    private String userId;
     private Double amount;
     private String currency;
     private String merchantId;
@@ -26,6 +28,8 @@ public class Transaction {
 
     @Enumerated(EnumType.STRING)
     private TransactionStatus status = TransactionStatus.PENDING;
+
+    private String failureReason;
 
     private LocalDateTime createdAt = LocalDateTime.now();
 }
