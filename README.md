@@ -1,108 +1,170 @@
-# 🛡️ Project Sentinel: Real-Time Fraud Orchestration Platform
+# Project Sentinel
 
-**Sentinel** is a production-grade, event-driven distributed system designed to detect fraudulent financial transactions. It bridges the gap between high-performance Backend Engineering (**Spring Boot**) and Predictive Analytics (**Python/ML**).
+[![Java](https://img.shields.io/badge/Java-21-blue)](https://adoptium.net/)
+[![Spring Boot](https://img.shields.io/badge/Spring_Boot-4.x-6DB33F)](https://spring.io/projects/spring-boot)
+[![Python](https://img.shields.io/badge/Python-3.11-yellow)](https://www.python.org/)
+[![Docker Compose](https://img.shields.io/badge/Docker_Compose-Local_Stack-2496ED)](https://www.docker.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
 
-By using a **Dual-Path architecture**, the system mimics real-world fintech pipelines (like Stripe or PayPal) where transactions are validated through deterministic rules and asynchronous machine learning scoring.
+Portfolio project that simulates a real-world fraud detection pipeline using event-driven architecture: Spring Boot API + Kafka + Python ML worker + PostgreSQL + Redis + Prometheus/Grafana.
 
----
+## Portfolio Highlights
 
-## 🏗️ System Architecture
+- Built as a distributed system, not a monolith.
+- Uses asynchronous messaging for resilient fraud scoring.
+- Combines rule-based velocity checks with ML inference.
+- Includes observability with metrics and dashboards.
+- Designed to show backend engineering + MLOps fundamentals.
 
-The system is decoupled into three main layers to ensure high availability and scalability:
+## Table of Contents
 
-1. **Ingestion & Rules Engine (Spring Boot):**
-   - Receives RESTful transaction requests.
-   - Executes "Hot Path" rules (e.g., limit checks, blacklisted IPs).
-   - Persists transaction state to **PostgreSQL**.
-   - Acts as a Kafka Producer to trigger deep analysis.
-2. **Event Backbone (Apache Kafka):**
-   - Acts as a fault-tolerant buffer.
-   - Decouples the Java producer from the Python consumer.
-3. **Intelligence Layer (FastAPI + XGBoost):**
-   - Consumes events from Kafka.
-   - Performs feature engineering (e.g., calculating velocity via **Redis**).
-   - Generates fraud probability scores and emits decisions back to the system.
-4. **Observability Suite (Prometheus & Grafana):**
-   - Monitors system latency and ML model health (Drift).
+- [Architecture](#architecture)
+- [Tech Stack](#tech-stack)
+- [Quick Start](#quick-start)
+- [API Example](#api-example)
+- [Configuration](#configuration)
+- [Observability](#observability)
+- [Contributing](#contributing)
+- [Changelog](#changelog)
+- [Roadmap](#roadmap)
+- [License](#license)
 
----
+## Architecture
 
-## 🛠️ Tech Stack
-
-| Component            | Technology                    | Role                                     |
-| :------------------- | :---------------------------- | :--------------------------------------- |
-| **Backend**          | Java 21, Spring Boot 3.x      | Orchestration, API, and Rules            |
-| **Messaging**        | Apache Kafka                  | Event Streaming & Buffering              |
-| **Machine Learning** | Python 3.11, FastAPI, XGBoost | Predictive Scoring & Inference           |
-| **Primary DB**       | PostgreSQL                    | Transactional Source of Truth            |
-| **Cache/Features**   | Redis                         | Real-time state (User Velocity)          |
-| **Monitoring**       | Prometheus & Grafana          | System Health & Model Drift              |
-| **Infrastructure**   | Docker & Docker Compose       | Local Deployment & Environment Isolation |
-
----
-
-## 📡 Data Contract (Event Schema)
-
-Transactions are passed via Kafka using a standardized JSON schema to ensure cross-language compatibility:
-
-```json
-{
-  "transactionId": "uuid-v4",
-  "userId": 55092,
-  "amount": 1250.0,
-  "currency": "USD",
-  "merchantId": "M_8821",
-  "location": "New York, US",
-  "timestamp": "2026-03-03T16:30:00Z",
-  "deviceIp": "192.168.1.45"
-}
+```text
+Client -> Spring Boot API -> PostgreSQL (PENDING)
+                     |
+                     v
+                  Kafka (transactions)
+                     |
+                     v
+             Python ML Worker (XGBoost)
+                     |
+                     v
+               Kafka (fraud_results)
+                     |
+                     v
+         Spring Consumer -> PostgreSQL (APPROVED/FRAUD_FLAGGED)
 ```
 
-## 🚀 Senior-Level Engineering Patterns
+### Services
 
-### 1. **Asynchronous Decoupling**
+- `sentinal_backend`: REST API, validation, velocity check (Redis), Kafka producer/consumer, persistence.
+- `sentinal_ml`: Kafka worker that loads model and publishes fraud decisions.
+- `docker-compose.yml`: local infra for PostgreSQL, Redis, Kafka, Prometheus, Grafana, and worker container.
 
-The ML inference is computationally expensive. By using Kafka, the Ingestion Service remains highly responsive. If the ML service spikes in latency, transactions are queued rather than dropped.
+## Tech Stack
 
-### 2. **The "Audit Trail" Pattern**
+| Area | Technology |
+| --- | --- |
+| Backend | Java 21, Spring Boot, Spring Data JPA, Spring Kafka |
+| ML Worker | Python 3.11, kafka-python, scikit-learn, xgboost |
+| Data | PostgreSQL, Redis |
+| Messaging | Apache Kafka |
+| Monitoring | Spring Actuator, Micrometer, Prometheus, Grafana |
+| Infra | Docker Compose |
 
-Every ML decision is logged in the fraud_assessments table, including the model version used and the top features that contributed to the score. This is essential for regulatory compliance and model debugging.
+## Quick Start
 
-### 3. **Feature Engineering with Redis**
+### Prerequisites
 
-To detect "Velocity Attacks" (many small transactions in seconds), the ML service queries Redis to get a count of transactions for a specific userId in the last 10 minutes, rather than hitting the main database.
+- Java 21+
+- Maven 3.9+ (or use wrapper)
+- Python 3.11+
+- Docker + Docker Compose
 
-### 4. Real-Time Model Drift Monitoring (Prometheus & Grafana)
-
-Sentinel doesn't just serve predictions; it monitors its own accuracy.
-
-- **Data Drift:** Tracks the distribution of input features (e.g., Transaction Amount) using a moving window.
-- **Prediction Drift:** Monitors the "Mean Fraud Score." An abrupt upward shift suggests either a massive fraud attack or that the model's training data is stale.
-- **Alerting:** Configured thresholds in Grafana trigger warnings when the "Population Stability Index" (PSI) or "KL Divergence" exceeds 0.2, indicating the model needs retraining.
-
-## 💻 Local Development Setup
-
-### 1. **Infrastructure (Docker)**
-
-Ensure Docker is running and execute:
+### 1) Start infrastructure
 
 ```bash
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
-This starts Kafka, Zookeeper, Postgres, and Redis.
-
-### 2. **Backend (Java)**
+### 2) Run backend
 
 ```bash
-cd sentinel-backend
+cd sentinal_backend
 ./mvnw spring-boot:run
 ```
 
-### 3. **ML Service (Python)**
+### 3) Run worker locally (optional)
 
 ```bash
-cd sentinel-ml
+cd sentinal_ml
+python -m venv .venv
+source .venv/bin/activate   # PowerShell: .venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-uvicorn main:app --reload
+python -m app.worker
 ```
+
+## API Example
+
+### Analyze transaction
+
+- **Endpoint:** `POST /api/transactions/analyze`
+- **URL:** `http://localhost:8080/api/transactions/analyze`
+
+```json
+{
+  "amount": 1250.0,
+  "cardNumber": "4111111111111111",
+  "currency": "USD",
+  "merchantId": "M_8821",
+  "features": [0.1, -1.2, 0.4, 3.7]
+}
+```
+
+### Local URLs
+
+- Swagger UI: `http://localhost:8080/swagger-ui.html`
+- OpenAPI: `http://localhost:8080/api-docs`
+- Prometheus: `http://localhost:9090`
+- Grafana: `http://localhost:3000`
+
+## Configuration
+
+### Backend
+
+Set values in `sentinal_backend/src/main/resources/application.properties`:
+
+- DB: `spring.datasource.*`
+- Kafka: `spring.kafka.bootstrap-servers`, `app.kafka.topic.*`
+- Redis: `spring.data.redis.*`
+- Velocity rules: `velocity.limit.*`
+
+### ML Worker
+
+Copy `sentinal_ml/.env.example` to `sentinal_ml/.env`:
+
+```bash
+PROJECT_NAME='Project Sentinel AI'
+KAFKA_BOOTSTRAP_SERVERS=localhost:9092
+KAFKA_TRANSACTIONS_TOPIC=transactions
+KAFKA_RESULTS_TOPIC=fraud_results
+```
+
+## Observability
+
+- Backend metrics: `GET /actuator/prometheus`
+- Prometheus scrape config: `prometheus.yml`
+- Grafana default local login: `admin / admin`
+
+## Contributing
+
+Contributions, issues, and feature requests are welcome.
+
+Please read [CONTRIBUTING.md](./CONTRIBUTING.md) before opening a PR.
+
+## Changelog
+
+See [CHANGELOG.md](./CHANGELOG.md) for notable changes and release history.
+
+## Roadmap
+
+- Add authentication and role-based access control.
+- Add CI pipeline with automated tests and lint checks.
+- Add integration tests for Kafka and end-to-end processing.
+- Add model versioning and automated retraining workflow.
+
+## License
+
+Distributed under the MIT License. See [LICENSE](./LICENSE) for details.
