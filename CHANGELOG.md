@@ -12,10 +12,12 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 - Open-source style README with badges and contributor-facing sections.
 - `CONTRIBUTING.md` to standardize contribution workflow.
 - `CHANGELOG.md` to track release history.
+- `sentinal_ml/tests/fire_transactions.py` script for sending mixed transaction loads (normal, velocity stress, high amount) to the analyze API.
 
 ### Changed
 
 - Updated project documentation for portfolio presentation.
+- Updated `README.md` with a manual transaction test script section.
 
 ## [0.1.0] - 2026-03-29
 

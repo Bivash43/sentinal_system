@@ -22,6 +22,7 @@ Portfolio project that simulates a real-world fraud detection pipeline using eve
 - [Tech Stack](#tech-stack)
 - [Quick Start](#quick-start)
 - [API Example](#api-example)
+- [Manual Test Script](#manual-test-script)
 - [Configuration](#configuration)
 - [Observability](#observability)
 - [Contributing](#contributing)
@@ -119,6 +120,19 @@ python -m app.worker
 - OpenAPI: `http://localhost:8080/api-docs`
 - Prometheus: `http://localhost:9090`
 - Grafana: `http://localhost:3000`
+
+## Manual Test Script
+
+Use the request script to send 20 transactions against the analyze endpoint:
+
+- 5 normal transactions
+- 10 high-frequency transactions (same card number, to hit Velocity Guard)
+- 5 high-amount transactions (to exercise ML scoring paths)
+
+```bash
+cd sentinal_ml
+python tests/fire_transactions.py
+```
 
 ## Configuration
 
