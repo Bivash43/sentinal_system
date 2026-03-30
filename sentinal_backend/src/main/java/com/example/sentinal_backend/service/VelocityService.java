@@ -14,10 +14,10 @@ public class VelocityService {
     private final StringRedisTemplate redisTemplate;
 
     @Value("${velocity.limit.transaction}")
-    private static int LIMIT;
+    private int LIMIT;
 
     @Value("${velocity.limit.window.seconds}")
-    private static long WINDOW_SECONDS;
+    private long WINDOW_SECONDS;
 
     public boolean isVelocityExceeded(String cardNumber) {
         String key = "velocity:" + cardNumber;
