@@ -80,6 +80,8 @@ Client -> Spring Boot API -> PostgreSQL (PENDING)
 docker compose up -d --build
 ```
 
+Compose now waits for `postgres` and `kafka` healthchecks before starting `ai-worker`, which helps avoid startup connection errors.
+
 ### 2) Run backend
 
 ```bash
@@ -95,6 +97,13 @@ python -m venv .venv
 source .venv/bin/activate   # PowerShell: .venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 python -m app.worker
+```
+
+### 4) Run backend tests
+
+```bash
+cd sentinal_backend
+./mvnw test
 ```
 
 ## API Example

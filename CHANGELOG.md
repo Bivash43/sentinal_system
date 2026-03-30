@@ -13,11 +13,14 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 - `CONTRIBUTING.md` to standardize contribution workflow.
 - `CHANGELOG.md` to track release history.
 - `sentinal_ml/tests/fire_transactions.py` script for sending mixed transaction loads (normal, velocity stress, high amount) to the analyze API.
+- `VelocityServiceTest` with Mockito coverage for velocity-limit exceed path using mocked `StringRedisTemplate`.
 
 ### Changed
 
 - Updated project documentation for portfolio presentation.
 - Updated `README.md` with a manual transaction test script section.
+- Updated `docker-compose.yml` to add Kafka healthchecks and health-gated service startup for `ai-worker`.
+- Removed obsolete Compose `version` key.
 
 ## [0.1.0] - 2026-03-29
 

@@ -14,12 +14,15 @@ Thanks for your interest in contributing.
 
 1. Start local infrastructure:
    - `docker compose up -d --build`
+   - `ai-worker` waits for healthy `postgres` and `kafka` before startup.
 2. Run backend:
    - `cd sentinal_backend && ./mvnw spring-boot:run`
 3. Run ML worker (if not using Docker worker):
    - `cd sentinal_ml`
    - `pip install -r requirements.txt`
    - `python -m app.worker`
+4. Run tests:
+   - `cd sentinal_backend && ./mvnw test`
 
 ## Pull Request Checklist
 
