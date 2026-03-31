@@ -5,7 +5,6 @@ import com.example.sentinal_backend.repository.TransactionRepository;
 import io.micrometer.core.instrument.MeterRegistry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value; // Import this
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 

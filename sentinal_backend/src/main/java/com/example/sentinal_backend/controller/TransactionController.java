@@ -1,10 +1,13 @@
 package com.example.sentinal_backend.controller;
 
-import com.example.sentinal_backend.dto.TransactionRequest;
+import com.example.sentinal_backend.dto.request.TransactionRequest;
+import com.example.sentinal_backend.dto.response.TransactionResponse;
 import com.example.sentinal_backend.model.Transaction;
 import com.example.sentinal_backend.service.TransactionService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,8 +18,13 @@ public class TransactionController {
     private final TransactionService transactionService;
 
     @PostMapping("/analyze")
-    public ResponseEntity<String> analyzeTransaction(@RequestBody TransactionRequest request) {
+    @PreAuthorize("hasAnyRole('ANALYST', 'ADMIN')")
+    public ResponseEntity<TransactionResponse> analyzeTransaction(@Valid @RequestBody TransactionRequest request) {
         Transaction processed = transactionService.processAndAnalyze(request);
-        return ResponseEntity.ok("Transaction is being analyzed. ID: " + processed.getId());
+        return ResponseEntity.ok(new TransactionResponse(
+                processed.getId(),
+                processed.getStatus().name(),
+                "Transaction is being analyzed."
+        ));
     }
 }

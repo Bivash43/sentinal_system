@@ -1,6 +1,6 @@
 package com.example.sentinal_backend.service;
 
-import com.example.sentinal_backend.dto.TransactionRequest;
+import com.example.sentinal_backend.dto.request.TransactionRequest;
 import com.example.sentinal_backend.model.Transaction;
 import com.example.sentinal_backend.model.TransactionStatus;
 import com.example.sentinal_backend.producer.TransactionProducer;
@@ -26,6 +26,7 @@ public class TransactionService {
         transaction.setAmount(request.getAmount());
         transaction.setCardNumber(request.getCardNumber());
         transaction.setCurrency(request.getCurrency());
+        transaction.setMerchantId(request.getMerchantId());
         transaction.setFeatures(request.getFeatures());
         transaction.setStatus(TransactionStatus.PENDING);
 
