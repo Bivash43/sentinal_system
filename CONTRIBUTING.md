@@ -24,6 +24,26 @@ Thanks for your interest in contributing.
 4. Run tests:
    - `cd sentinal_backend && ./mvnw test`
 
+## Security and Auth Notes
+
+- Authentication is JWT-based:
+  - Login endpoint: `POST /api/auth/login`
+  - Protected endpoints require `Authorization: Bearer <token>`
+- RBAC currently includes `ADMIN`, `ANALYST`, and `VIEWER`.
+- Role module (`/api/roles/*`) is restricted to the seeded bootstrap admin account (configured by `app.security.bootstrap-admin.username`).
+- Forbidden access attempts are audited:
+  - Log pattern: `SECURITY_AUDIT 403 ...`
+  - Metric: `sentinel_security_forbidden_total`
+
+## Configuration Checklist for Contributors
+
+- Verify security-related backend config in `sentinal_backend/src/main/resources/application.properties`:
+  - `app.security.jwt.secret`
+  - `app.security.jwt.expiration-ms`
+  - `app.security.bootstrap-admin.username`
+  - `app.security.bootstrap-admin.password`
+- Never commit production secrets. Use environment-specific overrides for non-local environments.
+
 ## Pull Request Checklist
 
 - [ ] The change is scoped and documented.
@@ -31,6 +51,7 @@ Thanks for your interest in contributing.
 - [ ] Relevant tests were added or updated.
 - [ ] API or config changes are reflected in `README.md`.
 - [ ] Changelog entry is added when appropriate.
+- [ ] RBAC/security impacts (roles, endpoint access, 401/403 behavior) are validated and documented.
 
 ## Coding Guidelines
 

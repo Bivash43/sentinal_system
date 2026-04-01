@@ -14,6 +14,15 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 - `CHANGELOG.md` to track release history.
 - `sentinal_ml/tests/fire_transactions.py` script for sending mixed transaction loads (normal, velocity stress, high amount) to the analyze API.
 - `VelocityServiceTest` with Mockito coverage for velocity-limit exceed path using mocked `StringRedisTemplate`.
+- JWT authentication with `POST /api/auth/login`.
+- DB-backed users (`app_users`) with RBAC-enabled user CRUD APIs.
+- Seeded bootstrap admin creation on startup via `app.security.bootstrap-admin.*`.
+- Role module (`app_roles`) with CRUD APIs and default role seeding (`ADMIN`, `ANALYST`, `VIEWER`).
+- Seeded-admin-only guard for role CRUD operations.
+- Forbidden security audit service with structured `SECURITY_AUDIT 403` log entries.
+- 403 Prometheus metric counter (`sentinel.security.forbidden`).
+- Request/response DTO split into `dto/request` and `dto/response`.
+- `TransactionResponse` DTO for typed analyze API responses.
 
 ### Changed
 
@@ -21,6 +30,9 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 - Updated `README.md` with a manual transaction test script section.
 - Updated `docker-compose.yml` to add Kafka healthchecks and health-gated service startup for `ai-worker`.
 - Removed obsolete Compose `version` key.
+- Migrated backend security from basic in-memory credentials to JWT + database user details service.
+- Updated API response shape for `POST /api/transactions/analyze` to return structured JSON.
+- Expanded README and contributor docs with authentication, RBAC, role CRUD, and audit coverage.
 
 ## [0.1.0] - 2026-03-29
 
