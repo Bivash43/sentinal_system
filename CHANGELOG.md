@@ -23,6 +23,8 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 - 403 Prometheus metric counter (`sentinel.security.forbidden`).
 - Request/response DTO split into `dto/request` and `dto/response`.
 - `TransactionResponse` DTO for typed analyze API responses.
+- Swagger/OpenAPI bearer security scheme so JWT authorize is available in Swagger UI.
+- Auth-enabled ML transaction script flow (`fire_transactions.py`) that logs in first and sends Bearer tokens.
 
 ### Changed
 
@@ -33,6 +35,7 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 - Migrated backend security from basic in-memory credentials to JWT + database user details service.
 - Updated API response shape for `POST /api/transactions/analyze` to return structured JSON.
 - Expanded README and contributor docs with authentication, RBAC, role CRUD, and audit coverage.
+- Updated ML env/config with backend auth settings and aligned script execution from both repo root and `sentinal_ml` directory.
 
 ## [0.1.0] - 2026-03-29
 

@@ -217,6 +217,14 @@ Use the request script to send 20 transactions against the analyze endpoint:
 - 10 high-frequency transactions (same card number, to hit Velocity Guard)
 - 5 high-amount transactions (to exercise ML scoring paths)
 
+This script authenticates first and then sends Bearer JWT requests. Ensure these are set in `sentinal_ml/.env`:
+
+- `BACKEND_BASE_URL`
+- `BACKEND_LOGIN_PATH`
+- `BACKEND_ANALYZE_PATH`
+- `BACKEND_USERNAME`
+- `BACKEND_PASSWORD`
+
 ```bash
 cd sentinal_ml
 python tests/fire_transactions.py
@@ -249,6 +257,11 @@ PROJECT_NAME='Project Sentinel AI'
 KAFKA_BOOTSTRAP_SERVERS=localhost:9092
 KAFKA_TRANSACTIONS_TOPIC=transactions
 KAFKA_RESULTS_TOPIC=fraud_results
+BACKEND_BASE_URL=http://localhost:8080
+BACKEND_LOGIN_PATH=/api/auth/login
+BACKEND_ANALYZE_PATH=/api/transactions/analyze
+BACKEND_USERNAME=admin
+BACKEND_PASSWORD=change-me-admin
 ```
 
 ## Observability
