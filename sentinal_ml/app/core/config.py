@@ -17,4 +17,11 @@ class Settings:
     TOPIC_RESULTS: str = os.getenv("KAFKA_RESULTS_TOPIC", "fraud_results")
     CONSUMER_GROUP: str = os.getenv("KAFKA_CONSUMER_GROUP_ID", "sentinal-group")
 
+    # Backend API + Auth config (used by test/utility scripts)
+    BACKEND_BASE_URL: str = os.getenv("BACKEND_BASE_URL", "http://localhost:8080")
+    BACKEND_LOGIN_PATH: str = os.getenv("BACKEND_LOGIN_PATH", "/api/auth/login")
+    BACKEND_ANALYZE_PATH: str = os.getenv("BACKEND_ANALYZE_PATH", "/api/transactions/analyze")
+    BACKEND_USERNAME: str = os.getenv("BACKEND_USERNAME", "admin")
+    BACKEND_PASSWORD: str = os.getenv("BACKEND_PASSWORD", "change-me-admin")
+
 settings = Settings()
