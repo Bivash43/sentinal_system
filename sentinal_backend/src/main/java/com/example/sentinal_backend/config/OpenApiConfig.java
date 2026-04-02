@@ -14,7 +14,7 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Sentinel Fraud Detection API")
+                        .title("Sentinal Fraud Detection API")
                         .version("1.0")
                         .description("Java Backend for managing transactions and routing them to the Python AI core via Kafka."))
                 .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))

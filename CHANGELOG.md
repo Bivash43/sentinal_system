@@ -20,7 +20,7 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 - Role module (`app_roles`) with CRUD APIs and default role seeding (`ADMIN`, `ANALYST`, `VIEWER`).
 - Seeded-admin-only guard for role CRUD operations.
 - Forbidden security audit service with structured `SECURITY_AUDIT 403` log entries.
-- 403 Prometheus metric counter (`sentinel.security.forbidden`).
+- 403 Prometheus metric counter (`sentinal.security.forbidden`).
 - Request/response DTO split into `dto/request` and `dto/response`.
 - `TransactionResponse` DTO for typed analyze API responses.
 - Swagger/OpenAPI bearer security scheme so JWT authorize is available in Swagger UI.

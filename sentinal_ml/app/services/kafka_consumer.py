@@ -17,7 +17,7 @@ def start_kafka_worker():
         value_serializer=lambda v: json.dumps(v).encode('utf-8')
     )
 
-    print("🚀 Sentinel AI Worker is live and processing...")
+    print("🚀 Sentinal AI Worker is live and processing...")
     for message in consumer:
         data = message.value
         tx_id = data.get('id')  # Matches Java "id"

@@ -10,4 +10,4 @@ app.include_router(api_router, prefix="/api/v1")
 Instrumentator().instrument(app).expose(app)
 @app.get("/")
 async def root():
-    return {"message": "Sentinel AI Service is running"}
+    return {"message": "Sentinal AI Service is running"}

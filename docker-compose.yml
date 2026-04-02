@@ -2,7 +2,7 @@ services:
   # 1. Database with persistent volume
   postgres:
     image: postgres:15
-    container_name: sentinel-postgres
+    container_name: sentinal-postgres
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
@@ -20,14 +20,14 @@ services:
   # 2. Redis Cache
   redis:
     image: redis:alpine
-    container_name: sentinel-redis
+    container_name: sentinal-redis
     ports:
       - "6379:6379"
 
   # 3. Kafka Broker
   kafka:
     image: confluentinc/cp-kafka:latest
-    container_name: sentinel-kafka
+    container_name: sentinal-kafka
     ports:
       - "9092:9092"
     environment:
@@ -51,7 +51,7 @@ services:
   # 4. Monitoring
   prometheus:
     image: prom/prometheus:latest
-    container_name: sentinel-prometheus
+    container_name: sentinal-prometheus
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
@@ -59,7 +59,7 @@ services:
 
   grafana:
     image: grafana/grafana:latest
-    container_name: sentinel-grafana
+    container_name: sentinal-grafana
     ports:
       - "3000:3000"
     environment:
@@ -70,7 +70,7 @@ services:
   # 5. AI Worker - With Model Mounting
   ai-worker:
     build: ./sentinal_ml
-    container_name: sentinel-ai-worker
+    container_name: sentinal-ai-worker
     depends_on:
       postgres:
         condition: service_healthy
@@ -93,4 +93,4 @@ volumes:
 
 networks:
   default:
-    name: sentinel-network
+    name: sentinal-network

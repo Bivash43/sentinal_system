@@ -29,7 +29,7 @@ public class FraudResultConsumer {
 
         // --- METRIC LOGIC ---
         String statusLabel = (isFraud != null && isFraud == 1) ? "fraud" : "approved";
-        meterRegistry.counter("sentinel.transactions.processed", "status", statusLabel).increment();
+        meterRegistry.counter("sentinal.transactions.processed", "status", statusLabel).increment();
 
         repository.findById(id).ifPresentOrElse(transaction -> {
             if (isFraud != null && isFraud == 1) {

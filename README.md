@@ -1,4 +1,4 @@
-# Project Sentinel
+# Project Sentinal
 
 [![Java](https://img.shields.io/badge/Java-21-blue)](https://adoptium.net/)
 [![Spring Boot](https://img.shields.io/badge/Spring_Boot-4.x-6DB33F)](https://spring.io/projects/spring-boot)
@@ -253,7 +253,7 @@ Security notes:
 Copy `sentinal_ml/.env.example` to `sentinal_ml/.env`:
 
 ```bash
-PROJECT_NAME='Project Sentinel AI'
+PROJECT_NAME='Project Sentinal AI'
 KAFKA_BOOTSTRAP_SERVERS=localhost:9092
 KAFKA_TRANSACTIONS_TOPIC=transactions
 KAFKA_RESULTS_TOPIC=fraud_results

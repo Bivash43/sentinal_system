@@ -24,6 +24,6 @@ public class ForbiddenAuditService {
 
         log.warn("SECURITY_AUDIT 403 user={} roles={} method={} path={} remote={} reason={}",
                 user, roles, method, path, request.getRemoteAddr(), reason);
-        meterRegistry.counter("sentinel.security.forbidden", "path", path, "method", method).increment();
+        meterRegistry.counter("sentinal.security.forbidden", "path", path, "method", method).increment();
     }
 }

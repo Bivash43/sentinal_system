@@ -1,4 +1,4 @@
-# Contributing to Project Sentinel
+# Contributing to Project Sentinal
 
 Thanks for your interest in contributing.
 
