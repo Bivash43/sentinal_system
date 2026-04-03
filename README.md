@@ -127,6 +127,8 @@ cd sentinal_backend
 ### Authorization model
 
 - `POST /api/auth/login` is public.
+- `POST /api/auth/refresh` is public.
+- `POST /api/auth/logout` is protected (requires Bearer token).
 - `POST /api/transactions/analyze` requires `ANALYST` or `ADMIN`.
 - `/api/users/*` supports RBAC CRUD:
   - Create/Update/Delete: `ADMIN`
@@ -152,13 +154,45 @@ Response:
 
 ```json
 {
-  "token": "<jwt-token>",
+  "token": "<jwt-access-token>",
+  "refreshToken": "<jwt-refresh-token-uuid>",
   "username": "admin",
   "role": "ADMIN"
 }
 ```
 
-### 2) Analyze transaction (protected)
+### 2) Refresh Token (public)
+
+- **Endpoint:** `POST /api/auth/refresh`
+- **URL:** `http://localhost:8080/api/auth/refresh`
+
+```json
+{
+  "refreshToken": "<jwt-refresh-token-uuid>"
+}
+```
+
+Response:
+
+```json
+{
+  "accessToken": "<new-jwt-access-token>",
+  "refreshToken": "<new-jwt-refresh-token>"
+}
+```
+
+### 3) Logout (protected)
+
+- **Endpoint:** `POST /api/auth/logout`
+- **Headers:** `Authorization: Bearer <jwt-access-token>`
+- **URL:** `http://localhost:8080/api/auth/logout`
+
+Response:
+```text
+Log out successful
+```
+
+### 4) Analyze transaction (protected)
 
 - **Endpoint:** `POST /api/transactions/analyze`
 - **Headers:** `Authorization: Bearer <jwt-token>`
@@ -184,7 +218,7 @@ Response:
 }
 ```
 
-### 3) Role CRUD (seeded admin only)
+### 5) Role CRUD (seeded admin only)
 
 - `POST /api/roles`
 - `GET /api/roles`
@@ -287,7 +321,6 @@ See [CHANGELOG.md](./CHANGELOG.md) for notable changes and release history.
 - Add CI pipeline with automated tests and lint checks.
 - Add integration tests for Kafka and end-to-end processing.
 - Add model versioning and automated retraining workflow.
-- Add refresh token flow and token revocation strategy.
 
 ## License
 

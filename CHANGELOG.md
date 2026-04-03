@@ -25,6 +25,9 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 - `TransactionResponse` DTO for typed analyze API responses.
 - Swagger/OpenAPI bearer security scheme so JWT authorize is available in Swagger UI.
 - Auth-enabled ML transaction script flow (`fire_transactions.py`) that logs in first and sends Bearer tokens.
+- DB-backed JWT refresh token rotation API (`POST /api/auth/refresh`) and token revocation (`POST /api/auth/logout`).
+- Reduced JWT access token expiry to 15 minutes for heightened security, backed by a 7-day refresh token.
+- Explicit endpoint exception exposure for `/error` path to prevent 401 masking of internal errors.
 
 ### Changed
 
