@@ -4,6 +4,7 @@ import com.example.sentinal_backend.dto.request.TransactionRequest;
 import com.example.sentinal_backend.model.Transaction;
 import com.example.sentinal_backend.model.TransactionStatus;
 import com.example.sentinal_backend.producer.TransactionProducer;
+import com.example.sentinal_backend.repository.AppUserRepository;
 import com.example.sentinal_backend.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,11 +19,16 @@ public class TransactionService {
     private final TransactionRepository repository;
     private final TransactionProducer producer;
     private final VelocityService velocityService;
+    private final AppUserRepository appUserRepository;
 
     @Transactional
-    public Transaction processAndAnalyze(TransactionRequest request) {
+    public Transaction processAndAnalyze(TransactionRequest request, String username) {
+        var user = appUserRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found for username: " + username));
+
         // 1. Initialize and Map DTO to Entity
         Transaction transaction = new Transaction();
+        transaction.setUserId(user.getId());
         transaction.setAmount(request.getAmount());
         transaction.setCardNumber(request.getCardNumber());
         transaction.setCurrency(request.getCurrency());
