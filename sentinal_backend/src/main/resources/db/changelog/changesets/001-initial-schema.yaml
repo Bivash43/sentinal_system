@@ -1,0 +1,133 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-initial-schema
+      author: ai-agent
+      changes:
+        - createTable:
+            tableName: app_roles
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(255)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: description
+                  type: VARCHAR(255)
+              - column:
+                  name: active
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp
+        - createTable:
+            tableName: app_users
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(255)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: username
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password_hash
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: enabled
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp
+        - createTable:
+            tableName: refresh_tokens
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(255)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_id
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: token
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: expiry_date
+                  type: timestamp
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: refresh_tokens
+            constraintName: fk_refresh_tokens_user
+            referencedColumnNames: id
+            referencedTableName: app_users
+        - createTable:
+            tableName: transactions
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(255)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: card_number
+                  type: VARCHAR(255)
+              - column:
+                  name: user_id
+                  type: VARCHAR(255)
+              - column:
+                  name: amount
+                  type: double precision
+              - column:
+                  name: currency
+                  type: VARCHAR(255)
+              - column:
+                  name: merchant_id
+                  type: VARCHAR(255)
+              - column:
+                  name: features
+                  type: text
+              - column:
+                  name: status
+                  type: VARCHAR(255)
+              - column:
+                  name: failure_reason
+                  type: VARCHAR(255)
+              - column:
+                  name: created_at
+                  type: timestamp
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: transactions
+            constraintName: fk_transactions_user
+            referencedColumnNames: id
+            referencedTableName: app_users
