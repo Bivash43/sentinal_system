@@ -28,6 +28,9 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 - DB-backed JWT refresh token rotation API (`POST /api/auth/refresh`) and token revocation (`POST /api/auth/logout`).
 - Reduced JWT access token expiry to 15 minutes for heightened security, backed by a 7-day refresh token.
 - Explicit endpoint exception exposure for `/error` path to prevent 401 masking of internal errors.
+- Integrated Liquibase schema versioning to safely create and track database changes without relying on automatic DDL generation.
+- Created programmatic `LiquibaseConfig` enforcing Liquibase schema execution prior to Hibernate data validations.
+- Explicit foreign keys applied natively in PostgreSQL for relationships spanning users, refresh tokens, and transactions.
 
 ### Changed
 
@@ -36,6 +39,7 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 - Updated `docker-compose.yml` to add Kafka healthchecks and health-gated service startup for `ai-worker`.
 - Removed obsolete Compose `version` key.
 - Migrated backend security from basic in-memory credentials to JWT + database user details service.
+- Hardened persistence properties preventing unstructured schema modifications: `spring.jpa.hibernate.ddl-auto` mapped to `validate`.
 - Updated API response shape for `POST /api/transactions/analyze` to return structured JSON.
 - Expanded README and contributor docs with authentication, RBAC, role CRUD, and audit coverage.
 - Updated ML env/config with backend auth settings and aligned script execution from both repo root and `sentinal_ml` directory.

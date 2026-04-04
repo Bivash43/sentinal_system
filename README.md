@@ -34,7 +34,7 @@ Portfolio project that simulates a real-world fraud detection pipeline using eve
 ## Architecture
 
 ```text
-Client -> Spring Boot API -> PostgreSQL (PENDING)
+Client -> Spring Boot API -> PostgreSQL (Liquibase managed)
                      |
                      v
                   Kafka (transactions)
@@ -60,7 +60,7 @@ RBAC -> method + endpoint checks
 
 ### Services
 
-- `sentinal_backend`: REST API, validation, velocity check (Redis), Kafka producer/consumer, persistence.
+- `sentinal_backend`: REST API, validation, velocity check (Redis), Kafka producer/consumer, Liquibase schema management, persistence.
 - `sentinal_ml`: Kafka worker that loads model and publishes fraud decisions.
 - `docker-compose.yml`: local infra for PostgreSQL, Redis, Kafka, Prometheus, Grafana, and worker container.
 
@@ -270,7 +270,7 @@ python tests/fire_transactions.py
 
 Set values in `sentinal_backend/src/main/resources/application.properties`:
 
-- DB: `spring.datasource.*`
+- DB: `spring.datasource.*` and schema validation enforcing (`spring.jpa.hibernate.ddl-auto=validate`).
 - Kafka: `spring.kafka.bootstrap-servers`, `app.kafka.topic.*`
 - Redis: `spring.data.redis.*`
 - Velocity rules: `velocity.limit.*`
