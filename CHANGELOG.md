@@ -31,6 +31,8 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 - Integrated Liquibase schema versioning to safely create and track database changes without relying on automatic DDL generation.
 - Created programmatic `LiquibaseConfig` enforcing Liquibase schema execution prior to Hibernate data validations.
 - Explicit foreign keys applied natively in PostgreSQL for relationships spanning users, refresh tokens, and transactions.
+- Configured Kafka Dead Letter Queue (DLQ) with 3 retries and a fallback topic (`.DLT`).
+- Added `DeadLetterConsumer` to safely audit perpetually failing Kafka messages.
 
 ### Changed
 
