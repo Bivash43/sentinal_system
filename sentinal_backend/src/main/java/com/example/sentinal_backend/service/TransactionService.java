@@ -3,8 +3,9 @@ package com.example.sentinal_backend.service;
 import com.example.sentinal_backend.dto.request.TransactionRequest;
 import com.example.sentinal_backend.model.Transaction;
 import com.example.sentinal_backend.model.TransactionStatus;
-import com.example.sentinal_backend.producer.TransactionProducer;
+import com.example.sentinal_backend.model.OutboxEvent;
 import com.example.sentinal_backend.repository.AppUserRepository;
+import com.example.sentinal_backend.repository.OutboxEventRepository;
 import com.example.sentinal_backend.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class TransactionService {
 
     private final TransactionRepository repository;
-    private final TransactionProducer producer;
+    private final OutboxEventRepository outboxEventRepository;
     private final VelocityService velocityService;
     private final AppUserRepository appUserRepository;
 
@@ -46,8 +47,10 @@ public class TransactionService {
         // 3. SAVE TO DB FIRST (This generates the UUID)
         Transaction savedTransaction = repository.save(transaction);
 
-        // 4. Send to Kafka for Python AI
-        producer.sendForAnalysis(savedTransaction);
+        // 4. Save to Outbox instead of direct Kafka send
+        OutboxEvent outboxEvent = new OutboxEvent();
+        outboxEvent.setTransactionId(savedTransaction.getId());
+        outboxEventRepository.save(outboxEvent);
 
         return savedTransaction;
     }

@@ -27,11 +27,18 @@ public class FraudResultConsumer {
 
         log.info("📩 Processing AI result for Transaction: {} (Confidence: {}%)", id, (confidence * 100));
 
-        // --- METRIC LOGIC ---
-        String statusLabel = (isFraud != null && isFraud == 1) ? "fraud" : "approved";
-        meterRegistry.counter("sentinal.transactions.processed", "status", statusLabel).increment();
-
         repository.findById(id).ifPresentOrElse(transaction -> {
+            
+            // IDEMPOTENCY CHECK
+            if (transaction.getStatus() != TransactionStatus.PENDING) {
+                log.warn("🔄 Duplicate result detected for Transaction: {}. Already processed.", id);
+                return;
+            }
+
+            // --- METRIC LOGIC ---
+            String statusLabel = (isFraud != null && isFraud == 1) ? "fraud" : "approved";
+            meterRegistry.counter("sentinal.transactions.processed", "status", statusLabel).increment();
+
             if (isFraud != null && isFraud == 1) {
                 log.error("🚨 ALERT: Fraud detected for Transaction: {}", id);
                 transaction.setStatus(TransactionStatus.FRAUD_FLAGGED);
