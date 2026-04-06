@@ -60,7 +60,7 @@ RBAC -> method + endpoint checks
 
 ### Services
 
-- `sentinal_backend`: REST API, validation, velocity check (Redis), Kafka producer/consumer, Liquibase schema management, persistence. Includes Dead Letter Queue (DLQ) implementation for Kafka resiliency.
+- `sentinal_backend`: REST API, validation, velocity check (Redis), Kafka producer/consumer, Liquibase schema management, persistence. Includes Transactional Outbox Pattern and Dead Letter Queue (DLQ) implementation for exactly-once guarantees and resiliency.
 - `sentinal_ml`: Kafka worker that loads model and publishes fraud decisions.
 - `docker-compose.yml`: local infra for PostgreSQL, Redis, Kafka, Prometheus, Grafana, and worker container.
 

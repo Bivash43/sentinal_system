@@ -33,6 +33,8 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 - Explicit foreign keys applied natively in PostgreSQL for relationships spanning users, refresh tokens, and transactions.
 - Configured Kafka Dead Letter Queue (DLQ) with 3 retries and a fallback topic (`.DLT`).
 - Added `DeadLetterConsumer` to safely audit perpetually failing Kafka messages.
+- Implemented Transactional Outbox Pattern to guarantee at-least-once Kafka message delivery and safeguard against partial application crashes.
+- Re-architected `FraudResultConsumer` with strict idempotency checks to safely ignore duplicate AI responses.
 
 ### Changed
 
