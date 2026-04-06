@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: 001-initial-schema
-      author: ai-agent
+      author: Bivash
       changes:
         - createTable:
             tableName: app_roles
