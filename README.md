@@ -68,7 +68,7 @@ RBAC -> method + endpoint checks
 
 | Area | Technology |
 | --- | --- |
-| Backend | Java 21, Spring Boot, Spring Data JPA, Spring Security, Spring Kafka |
+| Backend | Java 21, Spring Boot, Spring Data JPA, Spring Security, Spring Kafka, Resilience4j |
 | ML Worker | Python 3.11, kafka-python, scikit-learn, xgboost |
 | Data | PostgreSQL, Redis |
 | Messaging | Apache Kafka |
@@ -276,6 +276,7 @@ Set values in `sentinal_backend/src/main/resources/application.properties`:
 - Velocity rules: `velocity.limit.*`
 - JWT: `app.security.jwt.*`
 - Bootstrap admin seed: `app.security.bootstrap-admin.*`
+- Resilience4j: `resilience4j.circuitbreaker.*`
 
 Security notes:
 

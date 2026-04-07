@@ -35,6 +35,7 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 - Added `DeadLetterConsumer` to safely audit perpetually failing Kafka messages.
 - Implemented Transactional Outbox Pattern to guarantee at-least-once Kafka message delivery and safeguard against partial application crashes.
 - Re-architected `FraudResultConsumer` with strict idempotency checks to safely ignore duplicate AI responses.
+- Integrated Resilience4j Circuit Breaker dynamically preventing Redis connection bottlenecks by falling back natively to ML Worker inference.
 
 ### Changed
 
