@@ -115,6 +115,7 @@ python -m app.worker
 cd sentinal_backend
 ./mvnw test
 ```
+*Note: Backend tests include comprehensive E2E Security and API layer evaluations confirming JWT processing and RBAC logic against our secured endpoints.*
 
 ## Authentication and RBAC
 
