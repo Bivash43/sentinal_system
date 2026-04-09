@@ -37,7 +37,8 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 - Re-architected `FraudResultConsumer` with strict idempotency checks to safely ignore duplicate AI responses.
 - Integrated Resilience4j Circuit Breaker dynamically preventing Redis connection bottlenecks by falling back natively to ML Worker inference.
 - Added API and Web/Security layer test coverage for `AuthController` and `TransactionController` to validate JWTs and RBAC logic.
-
+- Integrated `Testcontainers` for infrastructure-independent complete end-to-end integration testing.
+- Added GitHub Actions workflow (`backend-ci.yml`) for automated Continuous Integration on push and pull requests to `main`.
 ### Changed
 
 - Updated project documentation for portfolio presentation.
