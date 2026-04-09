@@ -12,6 +12,7 @@ import com.redis.testcontainers.RedisContainer;
 
 @SpringBootTest
 @Testcontainers
+@SuppressWarnings("resource")
 public abstract class AbstractIntegrationTest {
 
     @Container
