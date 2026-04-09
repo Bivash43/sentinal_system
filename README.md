@@ -300,6 +300,15 @@ BACKEND_USERNAME=admin
 BACKEND_PASSWORD=change-me-admin
 ```
 
+## Continuous Integration & Testing
+
+This project uses **GitHub Actions** for Continuous Integration. On every push and pull request to `main`:
+1. The pipeline provisions `ubuntu-latest` with Java 21 and Maven.
+2. **Testcontainers** automatically spins up isolated instances of **PostgreSQL, Redis, and Kafka**.
+3. The end-to-end Spring integration tests are executed securely against this ephemeral infrastructure. 
+
+*To run tests locally, you must have Docker running on your host machine natively.*
+
 ## Observability
 
 - Backend metrics: `GET /actuator/prometheus`
@@ -320,8 +329,6 @@ See [CHANGELOG.md](./CHANGELOG.md) for notable changes and release history.
 
 ## Roadmap
 
-- Add CI pipeline with automated tests and lint checks.
-- Add integration tests for Kafka and end-to-end processing.
 - Add model versioning and automated retraining workflow.
 
 ## License

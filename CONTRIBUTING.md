@@ -23,6 +23,11 @@ Thanks for your interest in contributing.
    - `python -m app.worker`
 4. Run tests:
    - `cd sentinal_backend && ./mvnw test`
+   - *Note: Integration tests use Testcontainers and require a running Docker daemon on your host machine.*
+
+## Continuous Integration
+
+All pull requests must pass the GitHub Actions `Backend CI` workflow. The CI pipeline will independently spin up PostgreSQL, Redis, and Kafka to perform isolated end-to-end integration tests. Ensure your code compiles and passes locally before opening a PR.
 
 ## Security and Auth Notes
 
