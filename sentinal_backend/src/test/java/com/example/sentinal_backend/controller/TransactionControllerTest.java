@@ -27,8 +27,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-public class TransactionControllerTest {
+import com.example.sentinal_backend.AbstractIntegrationTest;
+
+public class TransactionControllerTest extends AbstractIntegrationTest {
 
     @Autowired
     private WebApplicationContext context;

@@ -30,8 +30,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-public class AuthControllerTest {
+import com.example.sentinal_backend.AbstractIntegrationTest;
+
+public class AuthControllerTest extends AbstractIntegrationTest {
 
     @Autowired
     private WebApplicationContext context;
