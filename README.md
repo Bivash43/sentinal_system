@@ -61,8 +61,8 @@ RBAC -> method + endpoint checks
 ### Services
 
 - `sentinal_backend`: REST API, validation, velocity check (Redis), Kafka producer/consumer, Liquibase schema management, persistence. Includes Transactional Outbox Pattern and Dead Letter Queue (DLQ) implementation for exactly-once guarantees and resiliency.
-- `sentinal_ml`: Kafka worker that loads model and publishes fraud decisions.
-- `docker-compose.yml`: local infra for PostgreSQL, Redis, Kafka, Prometheus, Grafana, and worker container.
+- `sentinal_ml`: Kafka worker that statically loads MLflow Production models and publishes fraud decisions.
+- `docker-compose.yml`: local infra for PostgreSQL, Redis, Kafka, Prometheus, Grafana, MLflow Registry, and worker container.
 
 ## Tech Stack
 
@@ -70,6 +70,7 @@ RBAC -> method + endpoint checks
 | --- | --- |
 | Backend | Java 21, Spring Boot, Spring Data JPA, Spring Security, Spring Kafka, Resilience4j |
 | ML Worker | Python 3.11, kafka-python, scikit-learn, xgboost |
+| MLOps | MLflow 2.10.x |
 | Data | PostgreSQL, Redis |
 | Messaging | Apache Kafka |
 | Monitoring | Spring Actuator, Micrometer, Prometheus, Grafana |
@@ -243,6 +244,7 @@ Example create payload:
 - OpenAPI: `http://localhost:8080/api-docs`
 - Prometheus: `http://localhost:9090`
 - Grafana: `http://localhost:3000`
+- MLflow Registry: `http://localhost:5000`
 
 ## Manual Test Script
 
@@ -329,7 +331,7 @@ See [CHANGELOG.md](./CHANGELOG.md) for notable changes and release history.
 
 ## Roadmap
 
-- Add model versioning and automated retraining workflow.
+- Productionize active learning cycle on real-time fraud data.
 
 ## License
 
