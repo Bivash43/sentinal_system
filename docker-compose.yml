@@ -76,16 +76,32 @@ services:
         condition: service_healthy
       kafka:
         condition: service_healthy
+      mlflow:
+        condition: service_started
     environment:
       - KAFKA_BOOTSTRAP_SERVERS=kafka:29092
       - KAFKA_TRANSACTIONS_TOPIC=transactions
       - KAFKA_RESULTS_TOPIC=fraud_results
       - KAFKA_CONSUMER_GROUP_ID=sentinal-group-docker
-      - MODEL_PATH=/app/model/sentinel_model.joblib
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
     volumes:
-      # Mount the local model folder to the container
-      # Adjust './sentinal_ml/m_learning/model' to your actual local path
-      - ./sentinal_ml/m_learning/model:/app/model
+      - ./sentinal_ml/mlruns:/mlruns
+    restart: always
+
+  # 6. MLflow Tracking Server
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.10.2
+    container_name: sentinal-mlflow
+    ports:
+      - "5000:5000"
+    command: >
+      mlflow server 
+      --host 0.0.0.0 
+      --port 5000 
+      --backend-store-uri sqlite:////mlruns/mlflow.db 
+      --default-artifact-root /mlruns
+    volumes:
+      - ./sentinal_ml/mlruns:/mlruns
     restart: always
 
 volumes:
