@@ -39,6 +39,9 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 - Added API and Web/Security layer test coverage for `AuthController` and `TransactionController` to validate JWTs and RBAC logic.
 - Integrated `Testcontainers` for infrastructure-independent complete end-to-end integration testing.
 - Added GitHub Actions workflow (`backend-ci.yml`) for automated Continuous Integration on push and pull requests to `main`.
+- Integrated MLflow Tracking Server into local Docker Compose orchestration mapped deeply via relative volume networking.
+- Refactored local Jupyter notebook training concepts into a formalized `train.py` pipeline wrapping XGBoost inside MLflow Autologging.
+- Dynamically integrated MLflow Model Registry via the inference worker (`predictor.py`) bypassing static binary file reads entirely.
 ### Changed
 
 - Updated project documentation for portfolio presentation.

@@ -1,1 +1,5 @@
 .vscode
+mlruns/
+.venv/
+__pycache__/
+*.xgb

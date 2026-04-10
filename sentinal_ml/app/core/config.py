@@ -10,6 +10,10 @@ class Settings:
     # Inside Docker, we will set this to /app/model/sentinel_model.joblib
     DEFAULT_MODEL_PATH = os.path.join(Path(__file__).resolve().parent.parent, "m_learning", "model", "sentinel_model.joblib")
     MODEL_PATH: str = os.getenv("MODEL_PATH", DEFAULT_MODEL_PATH)
+    
+    # MLflow Configs
+    MLFLOW_TRACKING_URI: str = os.getenv("MLFLOW_TRACKING_URI", "http://localhost:5000")
+    MLFLOW_MODEL_NAME: str = os.getenv("MLFLOW_MODEL_NAME", "Sentinal_Fraud_Model")
 
     # Kafka Configs
     KAFKA_SERVERS: str = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092")
