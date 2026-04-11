@@ -53,6 +53,8 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 - Updated API response shape for `POST /api/transactions/analyze` to return structured JSON.
 - Expanded README and contributor docs with authentication, RBAC, role CRUD, and audit coverage.
 - Updated ML env/config with backend auth settings and aligned script execution from both repo root and `sentinal_ml` directory.
+- Migrated MLflow from local SQLite storage to a robust, scalable PostgreSQL-backed remote environment.
+- Configured dynamic environment-based model staging (`MODEL_STAGE`) and decoupled hardcoded configurations.
 
 ## [0.1.0] - 2026-03-29
 
