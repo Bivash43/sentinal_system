@@ -300,6 +300,11 @@ BACKEND_LOGIN_PATH=/api/auth/login
 BACKEND_ANALYZE_PATH=/api/transactions/analyze
 BACKEND_USERNAME=admin
 BACKEND_PASSWORD=change-me-admin
+
+# MLflow
+MLFLOW_TRACKING_URI=http://localhost:5000
+MLFLOW_MODEL_NAME=Sentinal_Fraud_Model
+MODEL_STAGE=Staging
 ```
 
 ## Continuous Integration & Testing

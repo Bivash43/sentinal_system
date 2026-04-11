@@ -14,6 +14,7 @@ class Settings:
     # MLflow Configs
     MLFLOW_TRACKING_URI: str = os.getenv("MLFLOW_TRACKING_URI", "http://localhost:5000")
     MLFLOW_MODEL_NAME: str = os.getenv("MLFLOW_MODEL_NAME", "Sentinal_Fraud_Model")
+    MODEL_STAGE: str = os.getenv("MODEL_STAGE", "Staging")
 
     # Kafka Configs
     KAFKA_SERVERS: str = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092")
