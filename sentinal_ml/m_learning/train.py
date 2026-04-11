@@ -4,11 +4,12 @@ import mlflow
 import mlflow.xgboost
 from xgboost import XGBClassifier
 from sklearn.metrics import precision_score, recall_score, f1_score
+from core.config import ml_config
 
 # Ensure we're in the right directory for relative 'data/' paths
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
-mlflow.set_tracking_uri("http://localhost:5000")
+mlflow.set_tracking_uri(ml_config.MLFLOW_TRACKING_URI)
 mlflow.set_experiment("Sentinal_Fraud_Detection")
 
 print("Loading data...")
@@ -52,19 +53,19 @@ with mlflow.start_run():
     mlflow.xgboost.log_model(
         xgb_model=model,
         artifact_path="xgboost-model",
-        registered_model_name="Sentinal_Fraud_Model"
+        registered_model_name=ml_config.MLFLOW_MODEL_NAME
     )
     
     client = mlflow.tracking.MlflowClient()
-    versions = client.search_model_versions("name='Sentinal_Fraud_Model'")
+    versions = client.search_model_versions(f"name='{ml_config.MLFLOW_MODEL_NAME}'")
     # Sort by version number numerically, taking the highest
     latest_version = sorted([int(v.version) for v in versions])[-1]
     
     client.transition_model_version_stage(
-        name="Sentinal_Fraud_Model",
+        name=ml_config.MLFLOW_MODEL_NAME,
         version=str(latest_version),
-        stage="Production",
-        archive_existing_versions=True
+        stage=ml_config.MODEL_STAGE,
+        archive_existing_versions=False
     )
     
-    print("Training complete and model pushed to 'Production' stage!")
+    print(f"Training complete and model pushed to '{ml_config.MODEL_STAGE}' stage!")

@@ -6,8 +6,8 @@ mlflow.set_tracking_uri(settings.MLFLOW_TRACKING_URI)
 
 class FraudPredictor:
     def __init__(self):
-        print(f"Loading Production model from MLflow ({settings.MLFLOW_TRACKING_URI})...")
-        model_uri = f"models:/{settings.MLFLOW_MODEL_NAME}/Production"
+        print(f"Loading {settings.MODEL_STAGE} model from MLflow ({settings.MLFLOW_TRACKING_URI})...")
+        model_uri = f"models:/{settings.MLFLOW_MODEL_NAME}/{settings.MODEL_STAGE}"
         self.model = mlflow.xgboost.load_model(model_uri)
         print("Model loaded successfully!")
         
