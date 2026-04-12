@@ -24,6 +24,11 @@ services:
     container_name: sentinal-redis
     ports:
       - "6379:6379"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
 
   # 3. Kafka Broker
   kafka:
