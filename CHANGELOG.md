@@ -47,6 +47,7 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 - Updated project documentation for portfolio presentation.
 - Updated `README.md` with a manual transaction test script section.
 - Updated `docker-compose.yml` to add Kafka healthchecks and health-gated service startup for `ai-worker`.
+- Added Redis container healthcheck to improve local infrastructure startup resilience.
 - Removed obsolete Compose `version` key.
 - Migrated backend security from basic in-memory credentials to JWT + database user details service.
 - Hardened persistence properties preventing unstructured schema modifications: `spring.jpa.hibernate.ddl-auto` mapped to `validate`.
