@@ -1,0 +1,25 @@
+# Version Control
+.git
+.github
+.gitignore
+
+# IDEs
+.idea
+.vscode
+*.swp
+
+# Java / Maven
+sentinal_backend/target/
+*.jar
+*.class
+*.log
+sentinal_backend/startup*.log
+
+# Python / ML Worker
+sentinal_ml/.venv/
+**/__pycache__/
+*.pyc
+*.pyo
+
+# Secrets
+.env
