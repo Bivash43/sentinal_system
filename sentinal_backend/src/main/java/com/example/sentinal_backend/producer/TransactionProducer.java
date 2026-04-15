@@ -20,7 +20,7 @@ public class TransactionProducer {
     public void sendForAnalysis(Transaction transaction) {
         log.info("Attempting to send transaction {} to Kafka", transaction.getId());
 
-        kafkaTemplate.send(topic, transaction.getId(), transaction)
+        kafkaTemplate.send(topic, transaction.getCardNumber(), transaction)
                 .whenComplete((result, ex) -> {
                     if (ex == null) {
                         log.info("✅ Kafka ACK: Message sent to topic {} partition {} at offset {}",
