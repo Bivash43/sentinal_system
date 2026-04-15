@@ -19,18 +19,22 @@ class FraudPredictor:
             'normAmount', 'normTime'
         ]
 
-    def predict(self, features: list):
-        # We turn the list into a DataFrame and APPLY the labels (columns)
-        input_df = pd.DataFrame([features], columns=self.feature_names)
+    def predict(self, batch_features: list):
+        # We turn the 2D list into a DataFrame and APPLY the labels (columns)
+        input_df = pd.DataFrame(batch_features, columns=self.feature_names)
 
         # Now XGBoost will be happy because the names match!
         prediction = self.model.predict(input_df)
         probability = self.model.predict_proba(input_df)
 
-        return {
-            "is_fraud": int(prediction[0]),
-            "confidence": float(max(probability[0]))
-        }
+        results = []
+        for i in range(len(prediction)):
+            results.append({
+                "is_fraud": int(prediction[i]),
+                "confidence": float(max(probability[i]))
+            })
+            
+        return results
 
 
 predictor = FraudPredictor()

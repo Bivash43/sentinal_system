@@ -8,6 +8,7 @@ def start_kafka_worker():
         settings.TOPIC_TRANSACTIONS,
         bootstrap_servers=[settings.KAFKA_SERVERS],
         auto_offset_reset='earliest',
+        enable_auto_commit=False,
         group_id=settings.CONSUMER_GROUP, # Change the name slightly to reset offset
         value_deserializer=lambda m: json.loads(m.decode('utf-8'))
     )
@@ -17,28 +18,44 @@ def start_kafka_worker():
         value_serializer=lambda v: json.dumps(v).encode('utf-8')
     )
 
-    print("🚀 Sentinal AI Worker is live and processing...")
-    for message in consumer:
-        data = message.value
-        tx_id = data.get('id')  # Matches Java "id"
-        features = data.get('features')
-
-        if features:
-            print(f"🧠 Analyzing Transaction: {tx_id}")
+    print("🚀 Sentinal AI Worker is live and batch processing...")
+    
+    while True:
+        # 1. Grab a batch of up to 500 messages at once
+        msg_pack = consumer.poll(timeout_ms=1000, max_records=500)
+        
+        if not msg_pack:
+            continue
             
-            # 1. Run Prediction
-            prediction_result = predictor.predict(features)
+        batch_tx_ids = []
+        batch_features = []
+        
+        # 2. Extract features without making predictions yet
+        for tp, messages in msg_pack.items():
+            for message in messages:
+                data = message.value
+                batch_tx_ids.append(data.get('id'))
+                batch_features.append(data.get('features'))
+                
+        if batch_features:
+            print(f"🧠 Analyzing Batch of {len(batch_tx_ids)} Transactions...")
             
-            # 2. Format Response for Java
-            # We must include the 'transactionId' key because your Java 
-            # FraudResultConsumer looks for that key!
-            response = {
-                "transactionId": tx_id,
-                "is_fraud": int(prediction_result['is_fraud']),
-                "confidence": float(prediction_result['confidence'])
-            }
-
-            # 3. Send back to Java
-            producer.send(settings.TOPIC_RESULTS, value=response)
+            # 3. Vectorized Prediction
+            predictions = predictor.predict(batch_features)
+            
+            # 4. Asynchronous Produce
+            for i, tx_id in enumerate(batch_tx_ids):
+                response = {
+                    "transactionId": tx_id,
+                    "is_fraud": predictions[i]['is_fraud'],
+                    "confidence": predictions[i]['confidence']
+                }
+                # .send() is async!
+                producer.send(settings.TOPIC_RESULTS, value=response)
+                
+            # 5. Flush the whole batch at once 
             producer.flush()
-            print(f"✅ Result sent for {tx_id}: Fraud={response['is_fraud']}")
+            
+            # 6. Mark the Kafka offset as officially processed
+            consumer.commit()
+            print(f"✅ Successfully processed batch of {len(batch_tx_ids)} transactions.")
