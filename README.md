@@ -37,13 +37,13 @@ Portfolio project that simulates a real-world fraud detection pipeline using eve
 Client -> Spring Boot API -> PostgreSQL (Liquibase managed)
                      |
                      v
-                  Kafka (transactions)
+             Kafka (transactions - 32 partitions)
                      |
                      v
-             Python ML Worker (XGBoost)
+       Python ML Worker (XGBoost Vectorized Batching)
                      |
                      v
-               Kafka (fraud_results)
+             Kafka (fraud_results - 32 partitions)
                      |
                      v
          Spring Consumer -> PostgreSQL (APPROVED/FRAUD_FLAGGED)
@@ -61,7 +61,7 @@ RBAC -> method + endpoint checks
 ### Services
 
 - `sentinal_backend`: REST API, validation, velocity check (Redis), Kafka producer/consumer, Liquibase schema management, persistence. Includes Transactional Outbox Pattern and Dead Letter Queue (DLQ) implementation for exactly-once guarantees and resiliency.
-- `sentinal_ml`: Kafka worker that statically loads MLflow Production models and publishes fraud decisions.
+- `sentinal_ml`: Horizontally scalable Kafka worker that uses asynchronous micro-batching to rapidly evaluate transactions against MLflow Production models.
 - `docker-compose.yml`: local infra for PostgreSQL, Redis, Kafka, Prometheus, Grafana, MLflow Registry, and worker container.
 
 ## Tech Stack

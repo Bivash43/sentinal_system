@@ -8,6 +8,8 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 ## [Unreleased]
 
 ### Added
+- Configured programmatic Kafka `NewTopic` beans overriding Spring Boot's internal partition defaults to enforce 32 parallel partitions.
+- Transitioned AI Inference processing to evaluate fully-scaled 2D matrices across batched transactions seamlessly.
 
 - Open-source style README with badges and contributor-facing sections.
 - `CONTRIBUTING.md` to standardize contribution workflow.
@@ -43,6 +45,8 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 - Refactored local Jupyter notebook training concepts into a formalized `train.py` pipeline wrapping XGBoost inside MLflow Autologging.
 - Dynamically integrated MLflow Model Registry via the inference worker (`predictor.py`) bypassing static binary file reads entirely.
 ### Changed
+- Re-architected `Sentinal AI Worker` core orchestration from a synchronous loop to resilient chronological micro-batching using `KafkaConsumer.poll()`.
+- Updated `TransactionProducer` serialization mapping deterministic `cardNumber` keys to assure synchronized chronological evaluations across partitions.
 
 - Updated project documentation for portfolio presentation.
 - Updated `README.md` with a manual transaction test script section.
