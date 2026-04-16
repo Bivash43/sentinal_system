@@ -7,6 +7,7 @@ import com.example.sentinal_backend.repository.OutboxEventRepository;
 import com.example.sentinal_backend.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,9 @@ public class OutboxScheduler {
 
     // Run every 2 seconds to poll for new outbox events
     @Scheduled(fixedDelay = 2000)
+    @SchedulerLock(name = "processOutboxEventsLock", 
+                   lockAtMostFor = "${app.scheduler.lock.outbox.at-most-for}", 
+                   lockAtLeastFor = "${app.scheduler.lock.outbox.at-least-for}")
     public void processOutboxEvents() {
         List<OutboxEvent> pendingEvents = outboxEventRepository.findByProcessedFalseOrderByCreatedAtAsc();
 

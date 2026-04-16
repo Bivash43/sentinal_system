@@ -8,6 +8,7 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 ## [Unreleased]
 
 ### Added
+- Integrated ShedLock distributed locking mechanism to prevent `OutboxScheduler` race conditions across horizontally scaled Spring Boot instances.
 - Configured programmatic Kafka `NewTopic` beans overriding Spring Boot's internal partition defaults to enforce 32 parallel partitions.
 - Transitioned AI Inference processing to evaluate fully-scaled 2D matrices across batched transactions seamlessly.
 
