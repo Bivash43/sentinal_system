@@ -337,6 +337,7 @@ See [CHANGELOG.md](./CHANGELOG.md) for notable changes and release history.
 ## Roadmap
 
 - Productionize active learning cycle on real-time fraud data.
+- **Enterprise Scaling**: Replace the Scheduler-based Transactional Outbox pattern with Change Data Capture (Debezium + Kafka Connect) to eliminate database polling entirely.
 
 ## License
 
