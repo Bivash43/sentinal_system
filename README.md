@@ -271,20 +271,17 @@ python tests/fire_transactions.py
 
 ### Backend
 
-Set values in `sentinal_backend/src/main/resources/application.properties`:
+Set values in `sentinal_backend/src/main/resources/application.properties` or provide them via environment variables:
 
-- DB: `spring.datasource.*` and schema validation enforcing (`spring.jpa.hibernate.ddl-auto=validate`).
-- Kafka: `spring.kafka.bootstrap-servers`, `app.kafka.topic.*`
-- Redis: `spring.data.redis.*`
+- DB: `DB_URL`, `DB_USERNAME`, `DB_PASSWORD` (`spring.datasource.*` defaults to local).
+- Kafka: `KAFKA_BOOTSTRAP_SERVERS` (`spring.kafka.bootstrap-servers` default is local).
+- Redis: `REDIS_HOST`, `REDIS_PORT`
 - Velocity rules: `velocity.limit.*`
-- JWT: `app.security.jwt.*`
-- Bootstrap admin seed: `app.security.bootstrap-admin.*`
 - Resilience4j: `resilience4j.circuitbreaker.*`
 
 Security notes:
 
-- Change `app.security.bootstrap-admin.password` before non-local deployments.
-- Replace `app.security.jwt.secret` with a strong Base64 secret in each environment.
+- Replace `JWT_SECRET`, `ADMIN_USERNAME`, `ADMIN_PASSWORD` in your production environment. A `.env.example` file is provided in the project root to securely inject these into the Docker environment.
 
 ### ML Worker
 

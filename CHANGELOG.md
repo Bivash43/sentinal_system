@@ -8,6 +8,7 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 ## [Unreleased]
 
 ### Added
+- Created root-level `.env.example` as a template for securely injecting production environment variables.
 - Integrated ShedLock distributed locking mechanism to prevent `OutboxScheduler` race conditions across horizontally scaled Spring Boot instances.
 - Configured programmatic Kafka `NewTopic` beans overriding Spring Boot's internal partition defaults to enforce 32 parallel partitions.
 - Transitioned AI Inference processing to evaluate fully-scaled 2D matrices across batched transactions seamlessly.
@@ -46,6 +47,7 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 - Refactored local Jupyter notebook training concepts into a formalized `train.py` pipeline wrapping XGBoost inside MLflow Autologging.
 - Dynamically integrated MLflow Model Registry via the inference worker (`predictor.py`) bypassing static binary file reads entirely.
 ### Changed
+- Parameterized backend security credentials and infrastructure endpoints in `application.properties` and `docker-compose.yml` to rely on robust OS-level environment variables for production deployment.
 - Re-architected `Sentinal AI Worker` core orchestration from a synchronous loop to resilient chronological micro-batching using `KafkaConsumer.poll()`.
 - Updated `TransactionProducer` serialization mapping deterministic `cardNumber` keys to assure synchronized chronological evaluations across partitions.
 

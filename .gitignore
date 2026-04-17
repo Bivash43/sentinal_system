@@ -3,3 +3,4 @@ mlruns/
 .venv/
 __pycache__/
 *.xgb
+.env
