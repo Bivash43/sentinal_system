@@ -12,7 +12,6 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 - Integrated ShedLock distributed locking mechanism to prevent `OutboxScheduler` race conditions across horizontally scaled Spring Boot instances.
 - Configured programmatic Kafka `NewTopic` beans overriding Spring Boot's internal partition defaults to enforce 32 parallel partitions.
 - Transitioned AI Inference processing to evaluate fully-scaled 2D matrices across batched transactions seamlessly.
-
 - Open-source style README with badges and contributor-facing sections.
 - `CONTRIBUTING.md` to standardize contribution workflow.
 - `CHANGELOG.md` to track release history.
@@ -50,7 +49,6 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 - Parameterized backend security credentials and infrastructure endpoints in `application.properties` and `docker-compose.yml` to rely on robust OS-level environment variables for production deployment.
 - Re-architected `Sentinal AI Worker` core orchestration from a synchronous loop to resilient chronological micro-batching using `KafkaConsumer.poll()`.
 - Updated `TransactionProducer` serialization mapping deterministic `cardNumber` keys to assure synchronized chronological evaluations across partitions.
-
 - Updated project documentation for portfolio presentation.
 - Updated `README.md` with a manual transaction test script section.
 - Updated `docker-compose.yml` to add Kafka healthchecks and health-gated service startup for `ai-worker`.
