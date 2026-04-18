@@ -60,7 +60,7 @@ RBAC -> method + endpoint checks
 
 ### Services
 
-- `sentinal_backend`: REST API, validation, velocity check (Redis), Kafka producer/consumer, Liquibase schema management, persistence. Includes Transactional Outbox Pattern and Dead Letter Queue (DLQ) implementation for exactly-once guarantees and resiliency.
+- `sentinal_backend`: REST API, validation, velocity check (Redis), Kafka producer/consumer, Liquibase schema management, persistence. Includes Transactional Outbox Pattern, ShedLock distributed locking, and Dead Letter Queue (DLQ) implementation for exactly-once guarantees and resiliency.
 - `sentinal_ml`: Horizontally scalable Kafka worker that uses asynchronous micro-batching to rapidly evaluate transactions against MLflow Production models.
 - `docker-compose.yml`: local infra for PostgreSQL, Redis, Kafka, Prometheus, Grafana, MLflow Registry, and worker container.
 
@@ -68,7 +68,7 @@ RBAC -> method + endpoint checks
 
 | Area | Technology |
 | --- | --- |
-| Backend | Java 21, Spring Boot, Spring Data JPA, Spring Security, Spring Kafka, Resilience4j |
+| Backend | Java 21, Spring Boot, Spring Data JPA, Spring Security, Spring Kafka, Resilience4j, ShedLock |
 | ML Worker | Python 3.11, kafka-python, scikit-learn, xgboost |
 | MLOps | MLflow 2.10.x |
 | Data | PostgreSQL, Redis |
