@@ -8,6 +8,7 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 ## [Unreleased]
 
 ### Added
+- Expanded `.gitignore` with comprehensive exclusions for standard IDEs, Java/Maven build artifacts, and Python cache directories to keep version control clean.
 - Created root-level `.env.example` as a template for securely injecting production environment variables.
 - Integrated ShedLock distributed locking mechanism to prevent `OutboxScheduler` race conditions across horizontally scaled Spring Boot instances.
 - Configured programmatic Kafka `NewTopic` beans overriding Spring Boot's internal partition defaults to enforce 32 parallel partitions.

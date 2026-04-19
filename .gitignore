@@ -1,6 +1,21 @@
-.vscode
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Java / Maven
+target/
+*.jar
+*.class
+*.log
+
+# Python / ML
 mlruns/
 .venv/
 __pycache__/
 *.xgb
+.pytest_cache/
+.mypy_cache/
+
+# Secrets
 .env
