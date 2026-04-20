@@ -46,6 +46,7 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 - Integrated MLflow Tracking Server into local Docker Compose orchestration mapped deeply via relative volume networking.
 - Refactored local Jupyter notebook training concepts into a formalized `train.py` pipeline wrapping XGBoost inside MLflow Autologging.
 - Dynamically integrated MLflow Model Registry via the inference worker (`predictor.py`) bypassing static binary file reads entirely.
+
 ### Changed
 - Parameterized backend security credentials and infrastructure endpoints in `application.properties` and `docker-compose.yml` to rely on robust OS-level environment variables for production deployment.
 - Re-architected `Sentinal AI Worker` core orchestration from a synchronous loop to resilient chronological micro-batching using `KafkaConsumer.poll()`.
