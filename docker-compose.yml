@@ -90,6 +90,7 @@ services:
       - KAFKA_RESULTS_TOPIC=fraud_results
       - KAFKA_CONSUMER_GROUP_ID=sentinal-group-docker
       - MLFLOW_TRACKING_URI=http://mlflow:5000
+      - OTEL_EXPORTER_OTLP_ENDPOINT=${OTEL_EXPORTER_OTLP_ENDPOINT:-http://jaeger:4318/v1/traces}
     volumes:
       - ./sentinal_ml/mlruns:/mlruns
     restart: always
@@ -110,6 +111,17 @@ services:
     volumes:
       - ./sentinal_ml/mlruns:/mlruns
     restart: always
+
+  # 7. Distributed Tracing (Jaeger)
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: sentinal-jaeger
+    ports:
+      - "16686:16686" # Web UI
+      - "4317:4317"   # OTLP gRPC endpoint
+      - "4318:4318"   # OTLP HTTP endpoint
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
 
 volumes:
   postgres_data:
