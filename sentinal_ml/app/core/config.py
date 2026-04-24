@@ -14,6 +14,8 @@ class Settings:
     # MLflow Configs
     MLFLOW_TRACKING_URI: str = os.getenv("MLFLOW_TRACKING_URI", "http://localhost:5000")
     MLFLOW_MODEL_NAME: str = os.getenv("MLFLOW_MODEL_NAME", "Sentinal_Fraud_Model")
+    
+    OTEL_EXPORTER_OTLP_ENDPOINT: str = os.getenv("OTEL_EXPORTER_OTLP_ENDPOINT", "http://localhost:4318/v1/traces")
     MODEL_STAGE: str = os.getenv("MODEL_STAGE", "Staging")
 
     # Kafka Configs
