@@ -8,7 +8,7 @@ import io.micrometer.tracing.Tracer;
 import io.micrometer.observation.ObservationRegistry;
 
 @SpringBootTest
-public class TracingContextTest {
+public class TracingContextTest extends AbstractIntegrationTest {
     @Autowired
     private ApplicationContext context;
 

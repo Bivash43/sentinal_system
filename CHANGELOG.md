@@ -66,6 +66,9 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 - Migrated MLflow from local SQLite storage to a robust, scalable PostgreSQL-backed remote environment.
 - Configured dynamic environment-based model staging (`MODEL_STAGE`) and decoupled hardcoded configurations.
 
+### Fixed
+- Fixed CI failure by ensuring `TracingContextTest` extends `AbstractIntegrationTest` to correctly instantiate Testcontainers databases.
+
 ## [0.1.0] - 2026-03-29
 
 ### Added
