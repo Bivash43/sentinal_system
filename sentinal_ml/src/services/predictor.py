@@ -1,6 +1,6 @@
 import mlflow.xgboost
 import pandas as pd
-from app.core.config import settings
+from src.core.config import settings
 
 mlflow.set_tracking_uri(settings.MLFLOW_TRACKING_URI)
 

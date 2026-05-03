@@ -1,5 +1,5 @@
-from app.services.kafka_consumer import start_kafka_worker
-from app.core.config import settings
+from src.services.kafka_consumer import start_kafka_worker
+from src.core.config import settings
 
 from opentelemetry import trace
 from opentelemetry.sdk.trace import TracerProvider

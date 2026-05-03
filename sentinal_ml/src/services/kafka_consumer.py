@@ -1,7 +1,7 @@
 from kafka import KafkaConsumer, KafkaProducer
 import json
-from app.services.predictor import predictor
-from app.core.config import settings
+from src.services.predictor import predictor
+from src.core.config import settings
 
 from opentelemetry import trace
 from opentelemetry.trace import Link

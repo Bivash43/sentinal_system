@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from app.api.endpoints import router as api_router
-from app.core.config import settings
+from src.api.endpoints import router as api_router
+from src.core.config import settings
 from prometheus_fastapi_instrumentator import Instrumentator
 
 app = FastAPI(title=settings.PROJECT_NAME)

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
-from app.services.predictor import predictor
+from src.services.predictor import predictor
 
 router = APIRouter()
 
