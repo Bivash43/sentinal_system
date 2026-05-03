@@ -2,6 +2,7 @@
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
-m_learning/data/
+data/
+models/
 .idea
 .env
