@@ -1,10 +1,11 @@
-package com.example.sentinal_backend.model;
+package com.example.sentinal_backend.auth.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.Instant;
 import java.util.UUID;
+import com.example.sentinal_backend.user.model.AppUser;
 
 @Entity
 @Table(name = "refresh_tokens")

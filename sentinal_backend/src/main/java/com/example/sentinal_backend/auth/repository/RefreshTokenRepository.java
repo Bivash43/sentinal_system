@@ -1,7 +1,7 @@
-package com.example.sentinal_backend.repository;
+package com.example.sentinal_backend.auth.repository;
 
-import com.example.sentinal_backend.model.AppUser;
-import com.example.sentinal_backend.model.RefreshToken;
+import com.example.sentinal_backend.user.model.AppUser;
+import com.example.sentinal_backend.auth.model.RefreshToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;

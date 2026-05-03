@@ -1,6 +1,6 @@
-package com.example.sentinal_backend.service;
+package com.example.sentinal_backend.auth.service;
 
-import com.example.sentinal_backend.repository.AppUserRepository;
+import com.example.sentinal_backend.user.repository.AppUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

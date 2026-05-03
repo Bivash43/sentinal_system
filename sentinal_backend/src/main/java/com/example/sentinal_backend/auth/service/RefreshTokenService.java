@@ -1,9 +1,9 @@
-package com.example.sentinal_backend.service;
+package com.example.sentinal_backend.auth.service;
 
-import com.example.sentinal_backend.model.AppUser;
-import com.example.sentinal_backend.model.RefreshToken;
-import com.example.sentinal_backend.repository.AppUserRepository;
-import com.example.sentinal_backend.repository.RefreshTokenRepository;
+import com.example.sentinal_backend.user.model.AppUser;
+import com.example.sentinal_backend.auth.model.RefreshToken;
+import com.example.sentinal_backend.user.repository.AppUserRepository;
+import com.example.sentinal_backend.auth.repository.RefreshTokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

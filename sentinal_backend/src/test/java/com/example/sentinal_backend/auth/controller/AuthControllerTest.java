@@ -1,13 +1,13 @@
-package com.example.sentinal_backend.controller;
+package com.example.sentinal_backend.auth.controller;
 
-import com.example.sentinal_backend.dto.request.LoginRequest;
-import com.example.sentinal_backend.model.UserRole;
-import com.example.sentinal_backend.model.AppUser;
-import com.example.sentinal_backend.model.RefreshToken;
-import com.example.sentinal_backend.security.JwtService;
-import com.example.sentinal_backend.service.AppUserDetailsService;
-import com.example.sentinal_backend.service.RefreshTokenService;
-import com.example.sentinal_backend.service.UserService;
+import com.example.sentinal_backend.auth.dto.request.LoginRequest;
+import com.example.sentinal_backend.user.model.UserRole;
+import com.example.sentinal_backend.user.model.AppUser;
+import com.example.sentinal_backend.auth.model.RefreshToken;
+import com.example.sentinal_backend.auth.service.JwtService;
+import com.example.sentinal_backend.auth.service.AppUserDetailsService;
+import com.example.sentinal_backend.auth.service.RefreshTokenService;
+import com.example.sentinal_backend.user.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

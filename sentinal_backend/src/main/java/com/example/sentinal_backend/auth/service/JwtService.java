@@ -1,6 +1,6 @@
-package com.example.sentinal_backend.security;
+package com.example.sentinal_backend.auth.service;
 
-import com.example.sentinal_backend.model.UserRole;
+import com.example.sentinal_backend.user.model.UserRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;

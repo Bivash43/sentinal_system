@@ -1,4 +1,4 @@
-package com.example.sentinal_backend.dto.request;
+package com.example.sentinal_backend.auth.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
