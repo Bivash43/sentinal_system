@@ -1,10 +1,10 @@
-package com.example.sentinal_backend.service;
+package com.example.sentinal_backend.user.service;
 
-import com.example.sentinal_backend.dto.request.UserCreateRequest;
-import com.example.sentinal_backend.dto.request.UserUpdateRequest;
-import com.example.sentinal_backend.dto.response.UserResponse;
-import com.example.sentinal_backend.model.AppUser;
-import com.example.sentinal_backend.repository.AppUserRepository;
+import com.example.sentinal_backend.user.dto.request.UserCreateRequest;
+import com.example.sentinal_backend.user.dto.request.UserUpdateRequest;
+import com.example.sentinal_backend.user.dto.response.UserResponse;
+import com.example.sentinal_backend.user.model.AppUser;
+import com.example.sentinal_backend.user.repository.AppUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;

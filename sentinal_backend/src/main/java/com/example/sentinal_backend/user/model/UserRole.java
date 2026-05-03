@@ -1,4 +1,4 @@
-package com.example.sentinal_backend.model;
+package com.example.sentinal_backend.user.model;
 
 public enum UserRole {
     ADMIN,

@@ -1,10 +1,10 @@
-package com.example.sentinal_backend.service;
+package com.example.sentinal_backend.user.service;
 
-import com.example.sentinal_backend.dto.request.RoleCreateRequest;
-import com.example.sentinal_backend.dto.request.RoleUpdateRequest;
-import com.example.sentinal_backend.dto.response.RoleResponse;
-import com.example.sentinal_backend.model.AppRole;
-import com.example.sentinal_backend.repository.AppRoleRepository;
+import com.example.sentinal_backend.user.dto.request.RoleCreateRequest;
+import com.example.sentinal_backend.user.dto.request.RoleUpdateRequest;
+import com.example.sentinal_backend.user.dto.response.RoleResponse;
+import com.example.sentinal_backend.user.model.AppRole;
+import com.example.sentinal_backend.user.repository.AppRoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

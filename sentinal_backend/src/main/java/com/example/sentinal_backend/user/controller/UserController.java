@@ -1,9 +1,9 @@
-package com.example.sentinal_backend.controller;
+package com.example.sentinal_backend.user.controller;
 
-import com.example.sentinal_backend.dto.request.UserCreateRequest;
-import com.example.sentinal_backend.dto.request.UserUpdateRequest;
-import com.example.sentinal_backend.dto.response.UserResponse;
-import com.example.sentinal_backend.service.UserService;
+import com.example.sentinal_backend.user.dto.request.UserCreateRequest;
+import com.example.sentinal_backend.user.dto.request.UserUpdateRequest;
+import com.example.sentinal_backend.user.dto.response.UserResponse;
+import com.example.sentinal_backend.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

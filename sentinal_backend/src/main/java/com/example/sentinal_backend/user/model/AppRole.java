@@ -1,4 +1,4 @@
-package com.example.sentinal_backend.model;
+package com.example.sentinal_backend.user.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

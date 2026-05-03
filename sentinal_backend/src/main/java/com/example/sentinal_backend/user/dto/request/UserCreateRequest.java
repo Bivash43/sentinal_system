@@ -1,6 +1,6 @@
-package com.example.sentinal_backend.dto.request;
+package com.example.sentinal_backend.user.dto.request;
 
-import com.example.sentinal_backend.model.UserRole;
+import com.example.sentinal_backend.user.model.UserRole;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

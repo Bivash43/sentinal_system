@@ -1,9 +1,9 @@
-package com.example.sentinal_backend.controller;
+package com.example.sentinal_backend.user.controller;
 
-import com.example.sentinal_backend.dto.request.RoleCreateRequest;
-import com.example.sentinal_backend.dto.request.RoleUpdateRequest;
-import com.example.sentinal_backend.dto.response.RoleResponse;
-import com.example.sentinal_backend.service.RoleService;
+import com.example.sentinal_backend.user.dto.request.RoleCreateRequest;
+import com.example.sentinal_backend.user.dto.request.RoleUpdateRequest;
+import com.example.sentinal_backend.user.dto.response.RoleResponse;
+import com.example.sentinal_backend.user.service.RoleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

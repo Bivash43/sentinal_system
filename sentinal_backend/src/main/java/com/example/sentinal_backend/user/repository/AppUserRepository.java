@@ -1,6 +1,6 @@
-package com.example.sentinal_backend.repository;
+package com.example.sentinal_backend.user.repository;
 
-import com.example.sentinal_backend.model.AppUser;
+import com.example.sentinal_backend.user.model.AppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

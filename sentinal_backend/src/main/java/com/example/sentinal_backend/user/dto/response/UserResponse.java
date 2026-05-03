@@ -1,6 +1,6 @@
-package com.example.sentinal_backend.dto.response;
+package com.example.sentinal_backend.user.dto.response;
 
-import com.example.sentinal_backend.model.UserRole;
+import com.example.sentinal_backend.user.model.UserRole;
 
 import java.time.LocalDateTime;
 
