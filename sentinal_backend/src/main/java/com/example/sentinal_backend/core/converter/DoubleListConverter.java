@@ -1,4 +1,4 @@
-package com.example.sentinal_backend.converter;
+package com.example.sentinal_backend.core.converter;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;

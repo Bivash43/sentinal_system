@@ -1,4 +1,4 @@
-package com.example.sentinal_backend.security;
+package com.example.sentinal_backend.core.security;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,10 +1,10 @@
-package com.example.sentinal_backend.service;
+package com.example.sentinal_backend.core.outbox.service;
 
-import com.example.sentinal_backend.model.OutboxEvent;
-import com.example.sentinal_backend.model.Transaction;
-import com.example.sentinal_backend.producer.TransactionProducer;
-import com.example.sentinal_backend.repository.OutboxEventRepository;
-import com.example.sentinal_backend.repository.TransactionRepository;
+import com.example.sentinal_backend.core.outbox.model.OutboxEvent;
+import com.example.sentinal_backend.transaction.model.Transaction;
+import com.example.sentinal_backend.transaction.messaging.producer.TransactionProducer;
+import com.example.sentinal_backend.core.outbox.repository.OutboxEventRepository;
+import com.example.sentinal_backend.transaction.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;

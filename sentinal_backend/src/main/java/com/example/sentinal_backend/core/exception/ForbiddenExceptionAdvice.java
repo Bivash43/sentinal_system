@@ -1,4 +1,4 @@
-package com.example.sentinal_backend.security;
+package com.example.sentinal_backend.core.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Map;
+import com.example.sentinal_backend.core.security.ForbiddenAuditService;
 
 @RestControllerAdvice
 public class ForbiddenExceptionAdvice {

@@ -1,4 +1,4 @@
-package com.example.sentinal_backend.config;
+package com.example.sentinal_backend.core.config;
 
 import net.javacrumbs.shedlock.core.LockProvider;
 import net.javacrumbs.shedlock.provider.jdbctemplate.JdbcTemplateLockProvider;

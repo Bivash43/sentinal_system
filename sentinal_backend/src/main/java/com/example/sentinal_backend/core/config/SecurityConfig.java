@@ -1,9 +1,9 @@
-package com.example.sentinal_backend.config;
+package com.example.sentinal_backend.core.config;
 
-import com.example.sentinal_backend.security.JsonAccessDeniedHandler;
-import com.example.sentinal_backend.security.JsonAuthenticationEntryPoint;
-import com.example.sentinal_backend.security.JwtAuthenticationFilter;
-import com.example.sentinal_backend.service.AppUserDetailsService;
+import com.example.sentinal_backend.core.security.JsonAccessDeniedHandler;
+import com.example.sentinal_backend.core.security.JsonAuthenticationEntryPoint;
+import com.example.sentinal_backend.core.security.JwtAuthenticationFilter;
+import com.example.sentinal_backend.auth.service.AppUserDetailsService;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

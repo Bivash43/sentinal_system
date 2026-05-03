@@ -1,6 +1,6 @@
-package com.example.sentinal_backend.repository;
+package com.example.sentinal_backend.core.outbox.repository;
 
-import com.example.sentinal_backend.model.OutboxEvent;
+import com.example.sentinal_backend.core.outbox.model.OutboxEvent;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

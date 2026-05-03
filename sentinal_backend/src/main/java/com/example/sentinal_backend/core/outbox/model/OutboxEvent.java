@@ -1,4 +1,4 @@
-package com.example.sentinal_backend.model;
+package com.example.sentinal_backend.core.outbox.model;
 
 import jakarta.persistence.*;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.example.sentinal_backend.security;
+package com.example.sentinal_backend.core.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import com.example.sentinal_backend.auth.service.JwtService;
 
 @Component
 @RequiredArgsConstructor

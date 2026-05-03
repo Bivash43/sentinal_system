@@ -1,8 +1,8 @@
-package com.example.sentinal_backend.config;
+package com.example.sentinal_backend.core.config;
 
-import com.example.sentinal_backend.model.AppUser;
-import com.example.sentinal_backend.model.UserRole;
-import com.example.sentinal_backend.repository.AppUserRepository;
+import com.example.sentinal_backend.user.model.AppUser;
+import com.example.sentinal_backend.user.model.UserRole;
+import com.example.sentinal_backend.user.repository.AppUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;

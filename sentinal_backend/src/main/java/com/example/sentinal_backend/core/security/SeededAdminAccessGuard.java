@@ -1,6 +1,6 @@
-package com.example.sentinal_backend.security;
+package com.example.sentinal_backend.core.security;
 
-import com.example.sentinal_backend.config.SecurityBootstrapProperties;
+import com.example.sentinal_backend.core.config.SecurityBootstrapProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;

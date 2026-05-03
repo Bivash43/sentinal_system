@@ -1,4 +1,4 @@
-package com.example.sentinal_backend.config;
+package com.example.sentinal_backend.core.config;
 
 import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.context.annotation.Bean;
