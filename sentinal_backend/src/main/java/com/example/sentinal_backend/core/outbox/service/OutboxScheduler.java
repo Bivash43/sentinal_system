@@ -1,0 +1,59 @@
+package com.example.sentinal_backend.core.outbox.service;
+
+import com.example.sentinal_backend.core.outbox.model.OutboxEvent;
+import com.example.sentinal_backend.transaction.model.Transaction;
+import com.example.sentinal_backend.transaction.messaging.producer.TransactionProducer;
+import com.example.sentinal_backend.core.outbox.repository.OutboxEventRepository;
+import com.example.sentinal_backend.transaction.repository.TransactionRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+import io.micrometer.observation.Observation;
+import io.micrometer.observation.ObservationRegistry;
+
+@Service
+@RequiredArgsConstructor
+@Slf4j
+public class OutboxScheduler {
+
+    private final OutboxEventRepository outboxEventRepository;
+    private final TransactionRepository transactionRepository;
+    private final TransactionProducer transactionProducer;
+    private final ObservationRegistry observationRegistry;
+
+    // Run every 2 seconds to poll for new outbox events
+    @Scheduled(fixedDelay = 2000)
+    @SchedulerLock(name = "processOutboxEventsLock", 
+                   lockAtMostFor = "${app.scheduler.lock.outbox.at-most-for}", 
+                   lockAtLeastFor = "${app.scheduler.lock.outbox.at-least-for}")
+    public void processOutboxEvents() {
+        Observation.createNotStarted("outbox.process", observationRegistry).observe(() -> {
+            List<OutboxEvent> pendingEvents = outboxEventRepository.findByProcessedFalseOrderByCreatedAtAsc();
+
+            for (OutboxEvent event : pendingEvents) {
+                try {
+                    Optional<Transaction> txOpt = transactionRepository.findById(event.getTransactionId());
+                    if (txOpt.isPresent()) {
+                        transactionProducer.sendForAnalysis(txOpt.get());
+                        
+                        // Mark as processed only if send is successful
+                        event.setProcessed(true);
+                        outboxEventRepository.save(event);
+                        log.debug("Successfully published OutboxEvent for Transaction ID: {}", event.getTransactionId());
+                    } else {
+                        log.error("Transaction not found for OutboxEvent: {}. Marking as processed to ignore.", event.getId());
+                        event.setProcessed(true);
+                        outboxEventRepository.save(event);
+                    }
+                } catch (Exception e) {
+                    log.error("Failed to publish OutboxEvent for Transaction ID: {}. Will retry.", event.getTransactionId(), e);
+                }
+            }
+        });
+    }
+}

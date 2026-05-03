@@ -1,0 +1,13 @@
+from fastapi import FastAPI
+from src.api.endpoints import router as api_router
+from src.core.config import settings
+from prometheus_fastapi_instrumentator import Instrumentator
+
+app = FastAPI(title=settings.PROJECT_NAME)
+
+# Include our routes
+app.include_router(api_router, prefix="/api/v1")
+Instrumentator().instrument(app).expose(app)
+@app.get("/")
+async def root():
+    return {"message": "Sentinal AI Service is running"}

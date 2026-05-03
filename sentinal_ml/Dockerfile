@@ -17,4 +17,4 @@ COPY . .
 # Ensure the app package is in the python path
 ENV PYTHONPATH=/app
 
-CMD ["python", "-m", "app.worker"]
+CMD ["python", "-m", "src.worker"]

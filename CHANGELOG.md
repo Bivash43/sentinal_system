@@ -8,6 +8,7 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 ## [Unreleased]
 
 ### Added
+- Refactored project folder structure to a Domain-Driven (Package-by-Feature) layout for the Java backend and a standardized production layout (`src/` and `training/`) for the Python ML worker.
 - Integrated Jaeger all-in-one distributed tracing observability stack within local orchestration to track W3C traceparents.
 - Configured native OpenTelemetry Spans across Kafka boundaries using explicitly instantiated Micrometer Propagating Senders to enforce Jaeger System Architecture linkages.
 - Expanded `.gitignore` with comprehensive exclusions for standard IDEs, Java/Maven build artifacts, and Python cache directories to keep version control clean.
