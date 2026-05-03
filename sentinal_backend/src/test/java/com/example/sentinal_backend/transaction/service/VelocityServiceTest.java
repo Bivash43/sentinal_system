@@ -1,4 +1,4 @@
-package com.example.sentinal_backend.service;
+package com.example.sentinal_backend.transaction.service;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

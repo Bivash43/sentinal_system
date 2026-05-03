@@ -1,12 +1,12 @@
-package com.example.sentinal_backend.service;
+package com.example.sentinal_backend.transaction.service;
 
-import com.example.sentinal_backend.dto.request.TransactionRequest;
-import com.example.sentinal_backend.model.Transaction;
-import com.example.sentinal_backend.model.TransactionStatus;
-import com.example.sentinal_backend.model.OutboxEvent;
-import com.example.sentinal_backend.repository.AppUserRepository;
-import com.example.sentinal_backend.repository.OutboxEventRepository;
-import com.example.sentinal_backend.repository.TransactionRepository;
+import com.example.sentinal_backend.transaction.dto.request.TransactionRequest;
+import com.example.sentinal_backend.transaction.model.Transaction;
+import com.example.sentinal_backend.transaction.model.TransactionStatus;
+import com.example.sentinal_backend.core.outbox.model.OutboxEvent;
+import com.example.sentinal_backend.user.repository.AppUserRepository;
+import com.example.sentinal_backend.core.outbox.repository.OutboxEventRepository;
+import com.example.sentinal_backend.transaction.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.example.sentinal_backend.dto.request;
+package com.example.sentinal_backend.transaction.dto.request;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;

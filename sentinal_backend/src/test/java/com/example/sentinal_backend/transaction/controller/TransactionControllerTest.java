@@ -1,11 +1,11 @@
-package com.example.sentinal_backend.controller;
+package com.example.sentinal_backend.transaction.controller;
 
-import com.example.sentinal_backend.dto.request.TransactionRequest;
-import com.example.sentinal_backend.model.Transaction;
-import com.example.sentinal_backend.model.TransactionStatus;
-import com.example.sentinal_backend.security.JwtService;
-import com.example.sentinal_backend.service.AppUserDetailsService;
-import com.example.sentinal_backend.service.TransactionService;
+import com.example.sentinal_backend.transaction.dto.request.TransactionRequest;
+import com.example.sentinal_backend.transaction.model.Transaction;
+import com.example.sentinal_backend.transaction.model.TransactionStatus;
+import com.example.sentinal_backend.auth.service.JwtService;
+import com.example.sentinal_backend.auth.service.AppUserDetailsService;
+import com.example.sentinal_backend.transaction.service.TransactionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

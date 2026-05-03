@@ -1,4 +1,4 @@
-package com.example.sentinal_backend.model;
+package com.example.sentinal_backend.transaction.model;
 
 public enum TransactionStatus {
     PENDING,          // Received, awaiting ML score

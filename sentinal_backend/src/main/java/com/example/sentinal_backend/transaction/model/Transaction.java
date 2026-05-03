@@ -1,6 +1,6 @@
-package com.example.sentinal_backend.model;
+package com.example.sentinal_backend.transaction.model;
 
-import com.example.sentinal_backend.converter.DoubleListConverter;
+import com.example.sentinal_backend.core.converter.DoubleListConverter;
 import jakarta.persistence.*;
 import lombok.Data;
 

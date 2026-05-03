@@ -1,4 +1,4 @@
-package com.example.sentinal_backend.consumer;
+package com.example.sentinal_backend.transaction.messaging.consumer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;

@@ -1,4 +1,4 @@
-package com.example.sentinal_backend.service;
+package com.example.sentinal_backend.transaction.service;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;

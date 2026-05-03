@@ -1,7 +1,7 @@
-package com.example.sentinal_backend.consumer;
+package com.example.sentinal_backend.transaction.messaging.consumer;
 
-import com.example.sentinal_backend.model.TransactionStatus;
-import com.example.sentinal_backend.repository.TransactionRepository;
+import com.example.sentinal_backend.transaction.model.TransactionStatus;
+import com.example.sentinal_backend.transaction.repository.TransactionRepository;
 import io.micrometer.core.instrument.MeterRegistry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

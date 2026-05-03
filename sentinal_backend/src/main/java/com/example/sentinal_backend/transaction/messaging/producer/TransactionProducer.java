@@ -1,6 +1,6 @@
-package com.example.sentinal_backend.producer;
+package com.example.sentinal_backend.transaction.messaging.producer;
 
-import com.example.sentinal_backend.model.Transaction;
+import com.example.sentinal_backend.transaction.model.Transaction;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
