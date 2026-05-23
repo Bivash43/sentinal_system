@@ -7,9 +7,7 @@ import com.example.sentinal_backend.auth.dto.response.TokenRefreshResponse;
 import com.example.sentinal_backend.user.model.AppUser;
 import com.example.sentinal_backend.auth.model.RefreshToken;
 import com.example.sentinal_backend.auth.service.JwtService;
-import com.example.sentinal_backend.auth.service.AppUserDetailsService;
 import com.example.sentinal_backend.auth.service.RefreshTokenService;
-import com.example.sentinal_backend.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -29,9 +27,7 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
-    private final UserService userService;
     private final RefreshTokenService refreshTokenService;
-    private final AppUserDetailsService appUserDetailsService;
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
