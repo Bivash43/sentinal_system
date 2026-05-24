@@ -51,6 +51,9 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 - Dynamically integrated MLflow Model Registry via the inference worker (`predictor.py`) bypassing static binary file reads entirely.
 
 ### Changed
+- Optimized `JwtService` by caching the HMAC `SecretKey` during initialization to eliminate repetitive Base64 decoding on every authenticated request.
+- Eliminated redundant database queries during user authentication and token refresh by implementing a custom `AppUserDetails` wrapper.
+- Optimized `RefreshTokenService` logout flow with a custom JPQL query to delete tokens by username, bypassing the need to fetch the `AppUser` entity.
 - Parameterized backend security credentials and infrastructure endpoints in `application.properties` and `docker-compose.yml` to rely on robust OS-level environment variables for production deployment.
 - Re-architected `Sentinal AI Worker` core orchestration from a synchronous loop to resilient chronological micro-batching using `KafkaConsumer.poll()`.
 - Updated `TransactionProducer` serialization mapping deterministic `cardNumber` keys to assure synchronized chronological evaluations across partitions.

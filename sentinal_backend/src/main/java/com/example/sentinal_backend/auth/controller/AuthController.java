@@ -7,9 +7,7 @@ import com.example.sentinal_backend.auth.dto.response.TokenRefreshResponse;
 import com.example.sentinal_backend.user.model.AppUser;
 import com.example.sentinal_backend.auth.model.RefreshToken;
 import com.example.sentinal_backend.auth.service.JwtService;
-import com.example.sentinal_backend.auth.service.AppUserDetailsService;
 import com.example.sentinal_backend.auth.service.RefreshTokenService;
-import com.example.sentinal_backend.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
+import com.example.sentinal_backend.auth.model.AppUserDetails;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -29,16 +27,14 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
-    private final UserService userService;
     private final RefreshTokenService refreshTokenService;
-    private final AppUserDetailsService appUserDetailsService;
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
         var authToken = new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword());
         var authentication = authenticationManager.authenticate(authToken);
-        var principal = (User) authentication.getPrincipal();
-        var appUser = userService.findByUsernameOrThrow(principal.getUsername());
+        var principal = (AppUserDetails) authentication.getPrincipal();
+        var appUser = principal.getAppUser();
         
         String token = jwtService.generateToken(principal, appUser.getRole());
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(appUser.getUsername());
@@ -55,7 +51,7 @@ public class AuthController {
                 .map(refreshTokenService::rotateRefreshToken)
                 .map(newRefreshToken -> {
                     AppUser appUser = newRefreshToken.getUser();
-                    UserDetails userDetails = appUserDetailsService.loadUserByUsername(appUser.getUsername());
+                    UserDetails userDetails = new AppUserDetails(appUser);
                     String token = jwtService.generateToken(userDetails, appUser.getRole());
                     return ResponseEntity.ok(new TokenRefreshResponse(token, newRefreshToken.getToken()));
                 })

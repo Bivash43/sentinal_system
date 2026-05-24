@@ -49,9 +49,7 @@ public class RefreshTokenService {
 
     @Transactional
     public int deleteByUserUsername(String username) {
-        AppUser user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User not found: " + username));
-        return refreshTokenRepository.deleteByUser(user);
+        return refreshTokenRepository.deleteByUserUsername(username);
     }
 
     @Transactional
