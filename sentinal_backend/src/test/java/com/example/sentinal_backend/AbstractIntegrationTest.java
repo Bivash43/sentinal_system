@@ -10,7 +10,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 import com.redis.testcontainers.RedisContainer;
 
-@SpringBootTest
+@SpringBootTest(properties = "app.scheduling.enabled=false")
 @Testcontainers
 @SuppressWarnings("resource")
 public abstract class AbstractIntegrationTest {

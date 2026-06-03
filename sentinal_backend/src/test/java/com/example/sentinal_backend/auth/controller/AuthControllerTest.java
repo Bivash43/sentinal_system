@@ -18,7 +18,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.User;
+import com.example.sentinal_backend.auth.model.AppUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Collections;
@@ -70,15 +70,15 @@ public class AuthControllerTest extends AbstractIntegrationTest {
         loginRequest.setUsername("testuser");
         loginRequest.setPassword("password123");
 
-        User principal = new User("testuser", "password123", Collections.emptyList());
-        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(principal, "password123",
-                Collections.emptyList());
-
         UserRole role = UserRole.ANALYST;
 
         AppUser appUser = new AppUser();
         appUser.setUsername("testuser");
         appUser.setRole(role);
+
+        AppUserDetails principal = new AppUserDetails(appUser);
+        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(principal, "password123",
+                principal.getAuthorities());
 
         RefreshToken refreshToken = new RefreshToken();
         refreshToken.setToken("refresh-token-123");
