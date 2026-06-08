@@ -5,13 +5,13 @@ from pathlib import Path
 
 import requests
 
-# Make "app" package importable when running this file directly.
+# Make "src" package importable when running this file directly.
 CURRENT_FILE = Path(__file__).resolve()
 SENTINAL_ML_ROOT = CURRENT_FILE.parents[1]
 if str(SENTINAL_ML_ROOT) not in sys.path:
     sys.path.insert(0, str(SENTINAL_ML_ROOT))
 
-from app.core.config import settings
+from src.core.config import settings
 
 TOTAL_FEATURES = 30
 
