@@ -8,7 +8,7 @@ class Settings:
     PROJECT_NAME: str = os.getenv("PROJECT_NAME", "Sentinal AI")
 
     # Inside Docker, we will set this to /app/model/sentinel_model.joblib
-    DEFAULT_MODEL_PATH = os.path.join(Path(__file__).resolve().parent.parent, "m_learning", "model", "sentinel_model.joblib")
+    DEFAULT_MODEL_PATH = os.path.join(Path(__file__).resolve().parent.parent.parent, "models", "sentinel_model.joblib")
     MODEL_PATH: str = os.getenv("MODEL_PATH", DEFAULT_MODEL_PATH)
     
     # MLflow Configs
