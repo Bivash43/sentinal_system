@@ -74,6 +74,8 @@ and this project aims to follow [Semantic Versioning](https://semver.org/).
 - Decoupled and conditionally disabled Spring scheduling in integration tests to prevent connection timeouts and JVM shutdown hangs.
 - Fixed `AuthControllerTest` `ClassCastException` by using `AppUserDetails` as the authenticated mock principal.
 - Fixed CI failure by ensuring `TracingContextTest` extends `AbstractIntegrationTest` to correctly instantiate Testcontainers databases.
+- Fixed `DEFAULT_MODEL_PATH` in config to resolve to correct models directory.
+- Fixed `ModuleNotFoundError` in transaction simulation script by correcting import from legacy `app` to `src` package.
 
 ## [0.1.0] - 2026-03-29
 
